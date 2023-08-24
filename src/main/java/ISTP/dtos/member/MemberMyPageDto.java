@@ -12,7 +12,7 @@ public class MemberMyPageDto {
 
     private String name;
     private Integer age;
-    private Gender gender;
+    private boolean gender;
     private BloodType myBloodType;
     private String phoneNumber;
     private String nickname;
@@ -21,7 +21,7 @@ public class MemberMyPageDto {
     public MemberMyPageDto(Member member) {
         name = member.getName();
         age = member.getAge();
-        gender = member.getGender();
+        gender = member.isGender();
         myBloodType = member.getMyBloodType();
         phoneNumber = member.getPhoneNumber();
         nickname = member.getNickname();

@@ -45,7 +45,7 @@ public class MemberController {
         }
 
         Member member = new Member(form.getLoginId(), form.getPassword(),
-                form.getName(), form.getNickname(), form.getAge(), form.getGender(),
+                form.getName(), form.getNickname(), form.getAge(), form.isGender(),
                 form.getPhoneNumber(), form.getBloodType(), form.getEmail(), form.getAddress(), true);
 
         Long memberId = memberService.save(member);

@@ -30,7 +30,7 @@ public class MemberSaveForm {
     private Integer age;
 
     @NotNull
-    private Gender gender;
+    private boolean gender;
 
     @Email
     @NotBlank
