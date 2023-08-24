@@ -52,8 +52,8 @@ public class AlarmController {
 
     //알람 확인하면 상태 변경
     @PostMapping("/{memberId}/check/{memberAlarmId}")
-    public Long isRead(@PathVariable Long memberId, @PathVariable Long memberAlarmId) {
-        return alarmService.isRead(memberAlarmId);
+    public void isRead(@PathVariable Long memberId, @PathVariable Long memberAlarmId) {
+        alarmService.isRead(memberAlarmId);
     }
 
 }

@@ -11,13 +11,11 @@ import java.time.LocalDateTime;
 public class BoardSummaryDto {
 
     private String title;
-    private String content;
     private LocalDateTime createdTime;
     private String nickname;
 
     public BoardSummaryDto(Board board) {
         this.title = board.getTitle();
-        this.content = board.getContent();
         this.createdTime = board.getCreateDate();
         this.nickname = board.getMember().getNickname();
     }
