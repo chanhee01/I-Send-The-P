@@ -1,11 +1,8 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionType;
-import ISTP.domain.help.question.QuestionTypeName;
-import ISTP.domain.member.Gender;
+import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,20 +35,20 @@ class AnswerServiceTest {
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                QuestionType questionType = new QuestionType(ACCOUNT);
-                question = new Question("title" + i, "content" + i, questionType, member1);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ACCOUNT);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 6) {
-                QuestionType questionType = new QuestionType(SUGGESTION);
-                question = new Question("title" + i, "content" + i, questionType, member2);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(SUGGESTION);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             else if(i <= 9) {
-                QuestionType questionType = new QuestionType(PROGRAM);
-                question = new Question("title" + i, "content" + i, questionType, member1);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(PROGRAM);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else {
-                QuestionType questionType = new QuestionType(ETC);
-                question = new Question("title" + i, "content" + i, questionType, member2);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ETC);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             questionService.save(question);
         }

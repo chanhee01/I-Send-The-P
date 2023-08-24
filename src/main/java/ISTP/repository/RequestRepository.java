@@ -1,6 +1,5 @@
 package ISTP.repository;
 
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,17 +21,17 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     @EntityGraph(attributePaths = {"member"})
     Request findOneById(Long requestId);
-    List<Request> findAllByBloodTypeAndMemberNot(BloodType bloodType, Member member);
+    List<Request> findAllByBloodTypeIdAndMemberNot(Long bloodTypeId, Member member);
     List<Request> findAllByMemberNickname(String nickname);
 
     @Query("select m from Member m where m.alarmStatus = true and m.address like %:address% " +
-            "and m.myBloodType = :bloodType")
-    List<Member> findRegionByMemberBloodType(@Param(value = "address") String address,
-                                              @Param(value = "bloodType") BloodType bloodType);
+            "and m.myBloodTypeId = :bloodType")
+    List<Member> findRegionByMemberBloodTypeId(@Param(value = "address") String address,
+                                              @Param(value = "bloodType") Long bloodTypeId);
     // 성능최적화 무조건 필요
 
-    @Query("select m from Member m where m.alarmStatus = true and m.myBloodType = :bloodType")
-    List<Member> findAllByMemberBloodType(@Param(value = "bloodType") BloodType bloodType);
+    @Query("select m from Member m where m.alarmStatus = true and m.myBloodTypeId = :bloodTypeId")
+    List<Member> findAllByMemberBloodType(@Param(value = "bloodTypeId") Long bloodTypeId);
     // 사용자가 address에 아무것도 입력 안했으면 다 alarm으로만 조회하는거 호출??
     void deleteByMemberId(Long memberId);
 }

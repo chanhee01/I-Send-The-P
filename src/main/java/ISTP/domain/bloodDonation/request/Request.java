@@ -1,14 +1,12 @@
 package ISTP.domain.bloodDonation.request;
 
 import ISTP.domain.BaseEntity;
-import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.bloodDonation.accept.Accept;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -30,8 +28,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private String hospital;
     @Enumerated(STRING)
     private RequestStatus status;
-    @Enumerated(STRING)
-    private BloodType bloodType;
+    private Long bloodTypeId;
     private String relationship;
     private String requests_blood_type; // 무슨 헌혈인지
     private String address;
@@ -45,7 +42,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     }
 
     public Request(Member member, String sickness, String title, String content, LocalDateTime duration, String number, String hospital,
-                   RequestStatus status, BloodType bloodType, String relationship, String requests_blood_type, String address) {
+                   RequestStatus status, BloodTypeCategories bloodType, String relationship, String requests_blood_type, String address) {
         this.member = member;
         this.sickness = sickness;
         this.title = title;
@@ -54,7 +51,7 @@ public class Request extends BaseEntity { // 헌혈 요청
         this.number = number;
         this.hospital = hospital;
         this.status = status;
-        this.bloodType = bloodType;
+        this.bloodTypeId = bloodType.getId();
         this.relationship = relationship;
         this.requests_blood_type = requests_blood_type;
         this.address = address;

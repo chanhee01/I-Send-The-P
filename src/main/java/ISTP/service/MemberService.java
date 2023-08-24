@@ -1,9 +1,10 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
+import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import ISTP.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class MemberService {
     private final BoardRepository boardRepository;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
+    private final BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
 
     @Transactional
     public Long save(Member member) {
@@ -50,7 +52,11 @@ public class MemberService {
         log.info("아이디로 회원 찾기 {}", findMember);
         return findMember;
     }
-
+    public BloodTypeCategories findByBloodType(String bloodType) {
+        BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
+        log.info("혈액형이름으로 블러드타입 찾기 {}", byBloodType);
+        return byBloodType;
+    }
     //비밀번호 까먹었을 때 아이디로 비밀번호 찾는 로직
     public String findByPassword(String loginId) {
         Member findMember = memberRepository.findByLoginId(loginId);
@@ -164,9 +170,10 @@ public class MemberService {
 
 
     //알람 발송을 위해 혈액형이 같은 모든 멤버 조회 메서드
-    public List<Member> findAlarmMember(BloodType bloodType, boolean alarmStatus, String address) {
+    public List<Member> findAlarmMember(String bloodType, boolean alarmStatus, String address) {
         log.info("혈액형이 {}이고 알람이 On 이고 주소가 {}인 모든 멤버 조회", bloodType, address);
-        return memberRepository.findAllByMyBloodTypeAndAlarmStatusAndAddress(bloodType, alarmStatus, address);
+        BloodTypeCategories findBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
+        return memberRepository.findAllByMyBloodTypeIdAndAlarmStatusAndAddress(findBloodType.getId(), alarmStatus, address);
     }
 
     // 특정 멤버의 요청글 작성 리스트 받아오기

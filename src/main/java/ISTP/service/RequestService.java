@@ -1,8 +1,9 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import ISTP.repository.BloodTypeCategoriesRepository;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import java.util.List;
 public class RequestService {
 
     private final RequestRepository requestRepository;
+    private final BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
 
     @Transactional
     public Long save(Request request) {
@@ -63,8 +65,9 @@ public class RequestService {
     }
 
     // 멤버가 작성한 요청을 제외한 혈액형 타입으로 요청 리스트 찾는 메서드
-    public List<Request> findAllByBloodTypeExcludingMemberRequests(BloodType bloodType, Member member) {
-        return requestRepository.findAllByBloodTypeAndMemberNot(bloodType, member);
+    public List<Request> findAllByBloodTypeExcludingMemberRequests(String bloodType, Member member) {
+        BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
+        return requestRepository.findAllByBloodTypeIdAndMemberNot(byBloodType.getId(), member);
     }
 
     //멤버가 작성한 요청 리스트 찾는 메서드
@@ -72,11 +75,13 @@ public class RequestService {
         return requestRepository.findAllByMemberNickname(nickname);
     }
 
-    public List<Member> findRegionByMemberBloodType(String requestAddress, BloodType bloodType) {
-        return requestRepository.findRegionByMemberBloodType(requestAddress, bloodType);
+    public List<Member> findRegionByMemberBloodType(String requestAddress, String bloodType) {
+        BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
+        return requestRepository.findRegionByMemberBloodTypeId(requestAddress, byBloodType.getId());
     }
 
-    public List<Member> findAllByMemberBloodType(BloodType bloodType) {
-        return requestRepository.findAllByMemberBloodType(bloodType);
+    public List<Member> findAllByMemberBloodType(String bloodType) {
+        BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
+        return requestRepository.findAllByMemberBloodType(byBloodType.getId());
     }
 }

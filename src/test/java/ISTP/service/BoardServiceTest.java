@@ -1,9 +1,7 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
-import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -2,7 +2,7 @@ package ISTP.controller;
 
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionType;
+import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import ISTP.dtos.help.*;
 import ISTP.service.AnswerService;
@@ -39,8 +39,8 @@ public class HelpController {
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
         Member member = memberService.findById(memberId);
-        QuestionType questionType = questionService.findByQuestionType(form.getQuestionType());
-        Question question = new Question(form.getTitle(), form.getContent(), questionType, member);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(form.getQuestionType());
+        Question question = new Question(form.getTitle(), form.getContent(), questionTypeCategories, member);
         questionService.save(question);
         return question.getId();
     }
@@ -66,9 +66,9 @@ public class HelpController {
             //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 수정 시 오류 발생");
         }
-        QuestionType questionType = questionService.findByQuestionType(form.getQuestionType());
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(form.getQuestionType());
         Question question = questionService.findById(questionId);
-        questionService.updateQuestion(question, form.getTitle(), form.getContent(), questionType);
+        questionService.updateQuestion(question, form.getTitle(), form.getContent(), questionTypeCategories);
         return question.getId();
     }
 

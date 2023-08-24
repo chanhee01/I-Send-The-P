@@ -1,7 +1,7 @@
 package ISTP.domain.member;
 
 import ISTP.domain.BaseEntity;
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.board.Board;
@@ -32,11 +32,10 @@ public class Member extends BaseEntity { // 사용자
     private String name;
     private String nickname;
     private int age; //생년월일이어야할듯
-
     private boolean gender; // true 면 남자, false 면 여자
     private String phoneNumber;
-    @Enumerated(STRING)
-    private BloodType myBloodType;
+    @Column(name = "my_blood_type_id")
+    private Long myBloodTypeId;
     private String email; //이메일이 없었음 ㅜㅜ
     private String address;
     private boolean alarmStatus; // 알람기능
@@ -96,7 +95,7 @@ public class Member extends BaseEntity { // 사용자
         this.alarmStatus = true;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, BloodType myBloodType, String email, String address, boolean alarmStatus) {
+    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, BloodTypeCategories myBloodType, String email, String address, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
@@ -104,7 +103,7 @@ public class Member extends BaseEntity { // 사용자
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-        this.myBloodType = myBloodType;
+        this.myBloodTypeId = myBloodType.getId();
         this.email = email;
         this.address = address;
         this.alarmStatus = alarmStatus;
@@ -157,7 +156,7 @@ public class Member extends BaseEntity { // 사용자
         count++;
     }
 
-    public void setMyBloodType(BloodType myBloodType) {
-        this.myBloodType = myBloodType;
+    public void setMyBloodType(BloodTypeCategories myBloodType) {
+        this.myBloodTypeId = myBloodType.getId();
     }
 }

@@ -1,5 +1,6 @@
 package ISTP.controller;
 
+import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
@@ -44,9 +45,10 @@ public class MemberController {
 
         }
 
+        BloodTypeCategories byBloodType = memberService.findByBloodType(form.getBloodType());
         Member member = new Member(form.getLoginId(), form.getPassword(),
                 form.getName(), form.getNickname(), form.getAge(), form.isGender(),
-                form.getPhoneNumber(), form.getBloodType(), form.getEmail(), form.getAddress(), true);
+                form.getPhoneNumber(), byBloodType, form.getEmail(), form.getAddress(), true);
 
         Long memberId = memberService.save(member);
         return memberId;

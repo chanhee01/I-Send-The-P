@@ -1,6 +1,7 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static ISTP.domain.bloodDonation.BloodTypeName.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -20,22 +22,27 @@ class MemberServiceTest {
     @Autowired
     MemberService memberService;
 
+    @Autowired
     @BeforeEach
     public void before() {
 
         for(int i = 1; i <= 20; i++) {
             Member member = new Member("id" + i, "pass" + i, "nick" + i, "address" + i);
             if(i <= 5) {
-                member.setMyBloodType(BloodType.A_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(A_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else if(i <= 10) {
-                member.setMyBloodType(BloodType.B_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(B_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else if(i <= 15) {
-                member.setMyBloodType(BloodType.O_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(O_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else {
-                member.setMyBloodType(BloodType.AB_PLUS);;
+                BloodTypeCategories byBloodType = memberService.findByBloodType(AB_PLUS);
+                member.setMyBloodType(byBloodType);;
             }
             memberService.save(member);
         }
@@ -216,10 +223,10 @@ class MemberServiceTest {
 
     @Test
     public void findAllByMyBloodType() {
-        List<Member> allByMyBloodType = memberService.findAlarmMember(BloodType.A_PLUS, false, "");
+        List<Member> allByMyBloodType = memberService.findAlarmMember(A_PLUS, false, "");
         assertThat(allByMyBloodType.size()).isEqualTo(0);
         for (Member member : allByMyBloodType) {
-            assertThat(member.getMyBloodType()).isEqualTo(BloodType.A_PLUS);
+            assertThat(member.getMyBloodTypeId()).isEqualTo(1L);
         }
     }
 

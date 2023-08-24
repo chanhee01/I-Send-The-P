@@ -1,12 +1,10 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.accept.AcceptStatus;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
