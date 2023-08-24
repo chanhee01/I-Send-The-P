@@ -95,8 +95,7 @@ public class HelpController {
         Member member = memberService.findById(memberId);
         Question question = questionService.findById(questionId);
         Answer answer = answerService.createAnswer(form.getContent(), member, question);
-        Long saveAnswerId = answerService.save(answer);
-        return saveAnswerId;
+        return answer.getId();
     }
 
     //faq 답변 보여주기

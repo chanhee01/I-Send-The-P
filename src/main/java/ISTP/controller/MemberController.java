@@ -2,6 +2,7 @@ package ISTP.controller;
 
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.dtos.member.MemberChangeDto;
+import ISTP.dtos.member.MemberEditMyPageDto;
 import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
@@ -107,6 +108,14 @@ public class MemberController {
         memberService.findById(findMember.getId());
         return acceptService.count(findMember);
     }
+
+    @GetMapping("/myPages/{memberId}/edit")
+    public MemberEditMyPageDto myEditPage(@PathVariable Long memberId)  {
+        Member member = memberService.findById(memberId);
+        MemberEditMyPageDto memberEditMyPageDto = new MemberEditMyPageDto(member);
+        return memberEditMyPageDto;
+    }
+    //as
 
 
     @PutMapping("/change/{memberId}")
