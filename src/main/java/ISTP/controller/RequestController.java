@@ -9,15 +9,19 @@ import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/request")
+@RequestMapping("/api/requests")
 public class RequestController {
 
     private final RequestService requestService;
@@ -25,7 +29,7 @@ public class RequestController {
     //private final BloodCenterService bloodService;
     private final AlarmService alarmService;
 
-    @GetMapping("/list") // 게시글 리스트
+    @GetMapping("") // 게시글 리스트
     public Page<RequestListDto> requestList(@PageableDefault(size = 10) Pageable pageable) {
 
         Page<Request> requests = requestService.findByDESC(pageable);
@@ -43,7 +47,7 @@ public class RequestController {
         return requestDto;
     }
 
-    @PostMapping("/blood")// 게시글 올리기
+    @PostMapping("")// 게시글 올리기
     public Long bloodRequest(@Validated @RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
 
@@ -58,26 +62,21 @@ public class RequestController {
 
         Long savedId = requestService.save(savedRequest);
 
-        /*if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
-            List<Member> allByMemberBloodType = requestService.findAllByMemberBloodType(savedRequest.getBloodType());
-            for (Member m : allByMemberBloodType) {
-                System.out.println("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
-            }
+        List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getMyBloodTypeId());
+        for (Member m : allByMemberBloodType) {
+            log.info("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
         }
-        else { // 전체가 아니라 서울, 인천 이렇게 입력하면 해당 지역에 사는 사람만 알림 가기
-            List<Member> regionByMemberBloodType = requestService.findRegionByMemberBloodType(savedRequest.getAddress(), savedRequest.getBloodType());
-            for (Member m : regionByMemberBloodType) {
-                System.out.println("지역만 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
-            }
-        }*/
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
         //=========규혁 추가==========
         alarmService.createAlarmForMember(member, savedRequest);
+        
+        /*System.out.println("asdfsda" + acceptMember.getPhoneNumber());
+        messageService.sendOne(acceptMember.getPhoneNumber(), "헌혈이 필요합니다.");*/
         return savedId;
     }
 
-    @DeleteMapping("/delete/{requestId}") // 글 삭제
+    @DeleteMapping("/{requestId}") // 글 삭제
     public void delete_request(@PathVariable Long requestId) {
         requestService.delete(requestId);
     }

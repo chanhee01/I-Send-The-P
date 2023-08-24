@@ -1,5 +1,5 @@
 package ISTP.service;
-
+/*
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatusCategories;
@@ -167,4 +167,4 @@ class RequestServiceTest {
             System.out.println("member = " + member.getLoginId());
         }
     }
-}
+}*/

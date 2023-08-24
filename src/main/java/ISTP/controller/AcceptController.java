@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/accept")
+@RequestMapping("/api/accepts")
 public class AcceptController {
 
     private final AcceptService acceptService;

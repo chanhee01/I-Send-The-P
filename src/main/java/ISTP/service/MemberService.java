@@ -223,4 +223,7 @@ public class MemberService {
        return memberRepository.findTop5ByCount();
     }
 
+    public List<Member> findAllByBloodTypeIdAndAlarmStatus(Long bloodTypeId) {
+        return memberRepository.findAllByBloodTypeIdAndAlarmStatus(bloodTypeId);
+    }
 }

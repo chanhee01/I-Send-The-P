@@ -5,6 +5,7 @@ import ISTP.domain.alarm.Alarm;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.dtos.alarm.AcceptAndIsReadDto;
+import ISTP.message.MessageService;
 import ISTP.repository.AlarmRepository;
 import ISTP.repository.MemberAlarmRepository;
 import ISTP.repository.MemberRepository;
@@ -31,6 +32,7 @@ public class AlarmService {
     private final MemberRepository memberRepository;
     private final MemberAlarmRepository memberAlarmRepository;
     private final RequestRepository requestRepository;
+    private final MessageService messageService;
 
 
     public Alarm findAlarmById(Long alarmId) {
@@ -63,6 +65,7 @@ public class AlarmService {
         }
         alarmRepository.save(alarm);
         log.info("{} {} 알람 생성", alarm.getId(), alarm.getContent());
+
         return alarm.getId();
     }
 

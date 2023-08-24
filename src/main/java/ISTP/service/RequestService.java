@@ -1,11 +1,9 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.member.Member;
-import ISTP.repository.BloodDonationCategoriesRepository;
 import ISTP.repository.BloodTypeCategoriesRepository;
 import ISTP.repository.RequestRepository;
 import ISTP.repository.RequestStatusCategoriesRepository;
@@ -27,7 +25,6 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
     private final RequestStatusCategoriesRepository requestStatusCategoriesRepository;
-    private final BloodDonationCategoriesRepository bloodDonationCategoriesRepository;
 
     @Transactional
     public Long save(Request request) {
@@ -41,11 +38,6 @@ public class RequestService {
         return saveRequestType.getId();
     }
 
-    @Transactional
-    public Long bloodDonationSave(BloodDonationCategories bloodDonationCategories) {
-        BloodDonationCategories save = bloodDonationCategoriesRepository.save(bloodDonationCategories);
-        return save.getId();
-    }
     public Request findById(Long requestId) {
         return requestRepository.findById(requestId).
                 orElseThrow(() -> new IllegalArgumentException());
@@ -53,10 +45,6 @@ public class RequestService {
     public RequestStatusCategories findByRequestStatus(String requestStatus) {
         RequestStatusCategories byRequestStatus = requestStatusCategoriesRepository.findByRequestStatus(requestStatus);
         return byRequestStatus;
-    }
-    public BloodDonationCategories findByBloodType(String bloodDonation) {
-        BloodDonationCategories byBloodType = bloodDonationCategoriesRepository.findByBloodDonationCategories(bloodDonation);
-        return byBloodType;
     }
     public List<Request> findAll() {
         return requestRepository.findAll();
@@ -125,4 +113,5 @@ public class RequestService {
         BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
         return requestRepository.findAllByMemberBloodType(byBloodType.getId());
     }
+
 }
