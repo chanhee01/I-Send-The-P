@@ -35,7 +35,7 @@ public class AcceptController {
     @PostMapping("/{requestId}/change_finish/{acceptId}") // 헌혈 후 완료버튼 누르기
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
-        accept.update_finish();
+        acceptService.update_finish(accept);
         Request request = requestService.findById(requestId);
         requestService.changeStatus2(request);
         memberService.countPlus(accept.getMember());
@@ -44,7 +44,7 @@ public class AcceptController {
     @PostMapping("/{requestId}/change_cancel/{acceptId}") // 수락했는데 취소하는것
     public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
-        accept.update_cancel();
+        acceptService.update_cancel(accept);
         Request request = requestService.findById(requestId);
         requestService.changeStatus3(request);
     }

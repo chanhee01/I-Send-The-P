@@ -1,6 +1,7 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.accept.Accept;
+import ISTP.domain.bloodDonation.accept.AcceptStatus;
 import ISTP.domain.member.Member;
 import ISTP.repository.AcceptRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,14 @@ public class AcceptService {
 
     @Transactional
     public void update_cancel(Accept accept) {
-        accept.update_cancel();
+        Accept findAccept = findById(accept.getId());
+        if (findAccept.getStatus().equals(AcceptStatus.완료))
+        {
+            new IllegalArgumentException("완료가 된 요청은 취소로 변경할 수 없습니다.");
+        }
+        else {
+            accept.update_cancel();
+        }
     }
 
     @Transactional
@@ -40,7 +48,14 @@ public class AcceptService {
 
     @Transactional
     public void update_finish(Accept accept) {
-        accept.update_finish();
+        Accept findAccept = findById(accept.getId());
+        if(findAccept.getStatus().equals(AcceptStatus.취소))
+        {
+            new IllegalArgumentException("완료가 된 요청은 취소로 변경할 수 없습니다.");
+        }
+        else {
+            accept.update_finish();
+        }
     }
 
     public List<Accept> findByMember(Member member) {

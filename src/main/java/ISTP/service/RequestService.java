@@ -1,7 +1,10 @@
 package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.accept.Accept;
+import ISTP.domain.bloodDonation.accept.AcceptStatus;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
 import ISTP.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,12 +48,26 @@ public class RequestService {
 
     @Transactional
     public void changeStatus2(Request request) { // 진행중에서 완료로 바꾸기
-        request.update_finish();
+        Request findRequest = findById(request.getId());
+        if(findRequest.getStatus().equals(RequestStatus.신청))
+        {
+            new IllegalArgumentException("수혈 수락부터 눌러야합니다.");
+        }
+        else {
+            request.update_finish();
+        }
     }
 
     @Transactional
     public void changeStatus3(Request request) { // 취소누르면 다시 신청으로 바꾸기
-        request.update_request();
+        Request findRequest = findById(request.getId());
+        if(findRequest.getStatus().equals(RequestStatus.완료))
+        {
+            new IllegalArgumentException("이미 완료되어서 취소로 변경할 수 없습니다.");
+        }
+        else {
+            request.update_request();
+        }
     }
 
     @Transactional
