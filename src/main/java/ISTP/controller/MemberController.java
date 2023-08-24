@@ -115,6 +115,7 @@ public class MemberController {
         MemberEditMyPageDto memberEditMyPageDto = new MemberEditMyPageDto(member);
         return memberEditMyPageDto;
     }
+    //as
 
 
     @PutMapping("/change/{memberId}")
