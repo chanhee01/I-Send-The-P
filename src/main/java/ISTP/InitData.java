@@ -93,7 +93,6 @@ public class InitData {
             em.persist(member1);em.persist(member2);em.persist(member3);em.persist(member4);em.persist(member5);
             em.persist(member6);em.persist(member7);em.persist(member8);em.persist(member9);em.persist(member10);
 
-<<<<<<< HEAD
             RequestStatusCategories requestStatusCategories1 = new RequestStatusCategories(APPLICATION);
             RequestStatusCategories requestStatusCategories2 = new RequestStatusCategories(PROGRESS);
             RequestStatusCategories requestStatusCategories3 = new RequestStatusCategories(COMPLETED);
@@ -106,16 +105,6 @@ public class InitData {
             Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDateTime.now().plusDays(4), "444-444", "인하대병원", requestStatusCategories1, bloodTypeCategories1, "지인", "혈소판4", "인천");
             Request request5 = new Request(member2, "sickness5", "title5", "content5", LocalDateTime.now().plusDays(5), "555-555", "인하대병원", requestStatusCategories1, bloodTypeCategories1, "동생", "혈소판5", "인천");
             Request request6 = new Request(member2, "sickness6", "title6", "content6", LocalDateTime.now().plusDays(6), "666-666", "인하대병원", requestStatusCategories1, bloodTypeCategories2, "형", "혈소판6", "인천");
-=======
-
-
-            Request request1 = new Request(member1, "sickness1", "title1", "content1", LocalDateTime.now().plusDays(1), "111-111", "나사렛병원", RequestStatus.신청, bloodTypeCategories1, "부", "혈소판1", "인천");
-            Request request2 = new Request(member1, "sickness2", "title2", "content2", LocalDateTime.now().plusDays(2), "222-222", "나사렛병원", RequestStatus.신청, bloodTypeCategories2, "모", "혈소판2", "인천");
-            Request request3 = new Request(member1, "sickness3", "title3", "content3", LocalDateTime.now().plusDays(3), "333-333", "나사렛병원", RequestStatus.신청, bloodTypeCategories1, "친구", "혈소판3", "인천");
-            Request request4 = new Request(member2, "sickness4", "title4", "content4", LocalDateTime.now().plusDays(4), "444-444", "인하대병원", RequestStatus.신청, bloodTypeCategories1, "지인", "혈소판4", "인천");
-            Request request5 = new Request(member2, "sickness5", "title5", "content5", LocalDateTime.now().plusDays(5), "555-555", "인하대병원", RequestStatus.신청, bloodTypeCategories1, "동생", "혈소판5", "인천");
-            Request request6 = new Request(member2, "sickness6", "title6", "content6", LocalDateTime.now().plusDays(6), "666-666", "인하대병원", RequestStatus.신청, bloodTypeCategories2, "형", "혈소판6", "인천");
->>>>>>> a8c8b6f183ea0272b4f7dba5526b5692a82b01de
 
             member1.addRequest(request1);
             member1.addRequest(request2);
