@@ -1,11 +1,8 @@
 package ISTP;
 
-<<<<<<< HEAD
 import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodDonationName;
-=======
 import ISTP.domain.banner.Banner;
->>>>>>> de1ab1ad306f64fc5e785e66ce16466751f61e94
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusName;
@@ -160,28 +157,28 @@ public class InitData {
             em.persist(requestStatusCategories3);
 
             Request request1 =  new Request("title1", "1111-1111", "hospital1",
-                    "11-11", bloodTypeCategories1, "product1", LocalDateTime.now().plusDays(1),
-                    "부", "content1", bloodDonationCategories1, requestStatusCategories1, member1 );
+                    "11-11", bloodTypeCategories1.getId(), "product1", LocalDateTime.now().plusDays(1),
+                    "부", "content1", bloodDonationCategories1.getId(), requestStatusCategories1.getId(), member1 );
 
             Request request2 =  new Request("title2", "2222-2222", "hospital2",
-                    "22-22", bloodTypeCategories1, "product2", LocalDateTime.now().plusDays(2),
-                    "부", "content2", bloodDonationCategories1, requestStatusCategories1, member1 );
+                    "22-22", bloodTypeCategories1.getId(), "product2", LocalDateTime.now().plusDays(2),
+                    "부", "content2", bloodDonationCategories1.getId(), requestStatusCategories1.getId(), member1 );
 
             Request request3 =  new Request("title3", "3333-3333", "hospital3",
-                    "33-33", bloodTypeCategories1, "product3", LocalDateTime.now().plusDays(3),
-                    "부", "content3", bloodDonationCategories2, requestStatusCategories1, member1 );
+                    "33-33", bloodTypeCategories1.getId(), "product3", LocalDateTime.now().plusDays(3),
+                    "부", "content3", bloodDonationCategories2.getId(), requestStatusCategories1.getId(), member1 );
 
             Request request4 =  new Request("title4", "4444-4444", "hospital4",
-                    "44-44", bloodTypeCategories1, "product4", LocalDateTime.now().plusDays(4),
-                    "부", "content4", bloodDonationCategories2, requestStatusCategories1, member2 );
+                    "44-44", bloodTypeCategories1.getId(), "product4", LocalDateTime.now().plusDays(4),
+                    "부", "content4", bloodDonationCategories2.getId(), requestStatusCategories1.getId(), member2 );
 
             Request request5 =  new Request("title5", "5555-5555", "hospital5",
-                    "55-55", bloodTypeCategories1, "product5", LocalDateTime.now().plusDays(5),
-                    "부", "content5", bloodDonationCategories3, requestStatusCategories1, member2 );
+                    "55-55", bloodTypeCategories1.getId(), "product5", LocalDateTime.now().plusDays(5),
+                    "부", "content5", bloodDonationCategories3.getId(), requestStatusCategories1.getId(), member2 );
 
             Request request6 =  new Request("title6", "6666-6666", "hospital6",
-                    "66-66", bloodTypeCategories1, "product6", LocalDateTime.now().plusDays(6),
-                    "부", "content6", bloodDonationCategories1, requestStatusCategories1, member2 );
+                    "66-66", bloodTypeCategories1.getId(), "product6", LocalDateTime.now().plusDays(6),
+                    "부", "content6", bloodDonationCategories1.getId(), requestStatusCategories1.getId(), member2 );
 
             member1.addRequest(request1);
             member1.addRequest(request2);

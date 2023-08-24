@@ -42,20 +42,20 @@ public class Request extends BaseEntity { // 헌혈 요청
     }
 
     public Request(String title, String registerNumber, String hospitalName, String hospitalNumber,
-                   BloodTypeCategories bloodTypeCategories, String bloodProduct, LocalDateTime deadLine,
-                   String relationship, String content, BloodDonationCategories bloodDonationCategories,
-                   RequestStatusCategories requestStatusCategories, Member member) {
+                   Long bloodTypeCategories, String bloodProduct, LocalDateTime deadLine,
+                   String relationship, String content, Long bloodDonationCategories,
+                   Long requestStatusCategories, Member member) {
         this.title = title;
         this.registerNumber = registerNumber;
         this.hospitalName = hospitalName;
         this.hospitalNumber = hospitalNumber;
-        this.bloodTypeId = bloodTypeCategories.getId();
+        this.bloodTypeId = bloodTypeCategories;
         this.bloodProduct = bloodProduct;
         this.deadLine = deadLine;
         this.relationship = relationship;
         this.content = content;
-        this.bloodDonationTypeId = bloodDonationCategories.getId();
-        this.requestStatusId = requestStatusCategories.getId();
+        this.bloodDonationTypeId = bloodDonationCategories;
+        this.requestStatusId = requestStatusCategories;
         this.member = member;
     }
 
