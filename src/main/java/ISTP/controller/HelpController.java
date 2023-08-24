@@ -2,7 +2,6 @@ package ISTP.controller;
 
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.faq.Faq;
-import ISTP.domain.help.faq.FaqTypeCategories;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
@@ -102,8 +101,8 @@ public class HelpController {
 
     //faq 답변 보여주기
     @GetMapping("/{memberId}/faq")
-    public List<FaqDto> faqList(@PathVariable Long memberId, @RequestParam Long faqTypeId) {
-        List<Faq> allByFaqTypeId = questionService.findAllByFaqTypeId(faqTypeId);
+    public List<FaqDto> faqList(@PathVariable Long memberId, @RequestParam Long typeId) {
+        List<Faq> allByFaqTypeId = questionService.findAllByFaqTypeId(typeId);
         List<FaqDto> faqDtos = new ArrayList<>();
         for (Faq faq : allByFaqTypeId) {
             FaqDto faqDto = new FaqDto(faq);

@@ -2,7 +2,6 @@ package ISTP.service;
 
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.faq.Faq;
-import ISTP.domain.help.faq.FaqTypeCategories;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.repository.*;
@@ -20,7 +19,6 @@ import java.util.List;
 public class QuestionService {
 
     private final QuestionTypeCategoriesRepository questionTypeCategoriesRepository;
-    private final FaqTypeCategoriesRepository faqTypeCategoriesRepository;
     private final FaqRepository faqRepository;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
@@ -34,11 +32,6 @@ public class QuestionService {
     }
 
     //질문 타입 생성하는 건데 미리 데이터넣어놀 거라 실제로 사용할일 거의 없음
-    @Transactional
-    public Long faqTypeSave(FaqTypeCategories faqTypeCategories) {
-        FaqTypeCategories save = faqTypeCategoriesRepository.save(faqTypeCategories);
-        return save.getId();
-    }
 
     @Transactional
     public Long questionTypeSave(QuestionTypeCategories questionTypeCategories) {
@@ -58,19 +51,14 @@ public class QuestionService {
         return questionTypeCategories;
     }
 
-    public FaqTypeCategories findByFaqType(String faqType) {
-        FaqTypeCategories byFaqType = faqTypeCategoriesRepository.findByFaqType(faqType);
-        log.info("faq타입이름으로 질문타입 찾기 {}", byFaqType);
-        return byFaqType;
-    }
     public List<Question> findAll(Long memberId) {
         log.info("모든 문의 조회 나중에 작성된 시간 순으로 조회");
         return questionRepository.findAllByMemberIdOrderByCreateDateDesc(memberId);
     }
 
-    public List<Faq> findAllByFaqTypeId(Long faqTypeId) {
-        log.info("faqTypeId가 일치하는 Faq 모두 조회");
-        return faqRepository.findAllByFaqTypeId(faqTypeId);
+    public List<Faq> findAllByFaqTypeId(Long QuestionTypeId) {
+        log.info("QuestionTypeId가 일치하는 Faq 모두 조회");
+        return faqRepository.findAllByQuestionTypeId(QuestionTypeId);
     }
 
     @Transactional

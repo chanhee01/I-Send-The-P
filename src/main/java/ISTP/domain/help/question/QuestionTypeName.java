@@ -1,9 +1,14 @@
 package ISTP.domain.help.question;
 
 public interface QuestionTypeName {
-    String ACCOUNT = "계정문의";
-    String PROGRAM = "프로그램 오류";
-    String SUGGESTION = "건의사항";
-    String ETC = "기타";
+    String PARTICIPATION = "헌혈참여";
+    Long PARTICIPATION_ID = 1L;
+    String COMMON_SENSE = "헌혈상식";
+    Long COMMON_SENSE_ID = 2L;
+    String ACCOUNT = "계정";
+    Long ACCOUNT_ID = 3L;
+    String PROGRAM = "프로그램";
+    Long PROGRAM_ID = 4L;
+
 
 }

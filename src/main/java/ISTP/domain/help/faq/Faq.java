@@ -11,7 +11,7 @@ import lombok.ToString;
 
 @Entity
 @Getter
-@ToString(of = {"id", "question", "answer", "faqTypeId" })
+@ToString(of = {"id", "question", "answer", "questionTypeId" })
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Faq {
 
@@ -24,12 +24,12 @@ public class Faq {
     @Column(length = 1000)
     private String answer;
 
-    @Column(name = "faq_type_id")
-    private Long faqTypeId;
+    @Column(name = "question_type_id")
+    private Long questionTypeId;
 
-    public Faq(String question, String answer, Long faqTypeId) {
+    public Faq(String question, String answer, Long questionTypeId) {
         this.question = question;
         this.answer = answer;
-        this.faqTypeId = faqTypeId;
+        this.questionTypeId = questionTypeId;
     }
 }

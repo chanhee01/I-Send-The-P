@@ -39,19 +39,19 @@ class AnswerServiceTest {
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ACCOUNT);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(PARTICIPATION);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 6) {
-                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(SUGGESTION);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ACCOUNT);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             else if(i <= 9) {
-                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(PROGRAM);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(COMMON_SENSE);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else {
-                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ETC);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(PROGRAM);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             questionService.save(question);
