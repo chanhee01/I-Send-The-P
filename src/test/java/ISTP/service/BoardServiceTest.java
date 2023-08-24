@@ -3,7 +3,6 @@ package ISTP.service;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
