@@ -1,13 +1,11 @@
 package ISTP.service;
 
 import ISTP.domain.help.Answer;
+import ISTP.domain.help.faq.Faq;
 import ISTP.domain.help.faq.FaqTypeCategories;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
-import ISTP.repository.AnswerRepository;
-import ISTP.repository.FaqTypeCategoriesRepository;
-import ISTP.repository.QuestionRepository;
-import ISTP.repository.QuestionTypeCategoriesRepository;
+import ISTP.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +21,7 @@ public class QuestionService {
 
     private final QuestionTypeCategoriesRepository questionTypeCategoriesRepository;
     private final FaqTypeCategoriesRepository faqTypeCategoriesRepository;
+    private final FaqRepository faqRepository;
     private final QuestionRepository questionRepository;
     private final AnswerRepository answerRepository;
 
@@ -67,6 +66,11 @@ public class QuestionService {
     public List<Question> findAll(Long memberId) {
         log.info("모든 문의 조회 나중에 작성된 시간 순으로 조회");
         return questionRepository.findAllByMemberIdOrderByCreateDateDesc(memberId);
+    }
+
+    public List<Faq> findAllByFaqTypeId(Long faqTypeId) {
+        log.info("faqTypeId가 일치하는 Faq 모두 조회");
+        return faqRepository.findAllByFaqTypeId(faqTypeId);
     }
 
     @Transactional

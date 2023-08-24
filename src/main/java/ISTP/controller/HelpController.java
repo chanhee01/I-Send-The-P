@@ -1,9 +1,12 @@
 package ISTP.controller;
 
 import ISTP.domain.help.Answer;
+import ISTP.domain.help.faq.Faq;
+import ISTP.domain.help.faq.FaqTypeCategories;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
+import ISTP.dtos.faq.FaqDto;
 import ISTP.dtos.help.*;
 import ISTP.service.AnswerService;
 import ISTP.service.MemberService;
@@ -96,6 +99,19 @@ public class HelpController {
         Long saveAnswerId = answerService.save(answer);
         return saveAnswerId;
     }
+
+    //faq 답변 보여주기
+    @GetMapping("/{memberId}/faq")
+    public List<FaqDto> faqList(@PathVariable Long memberId, @RequestParam Long faqTypeId) {
+        List<Faq> allByFaqTypeId = questionService.findAllByFaqTypeId(faqTypeId);
+        List<FaqDto> faqDtos = new ArrayList<>();
+        for (Faq faq : allByFaqTypeId) {
+            FaqDto faqDto = new FaqDto(faq);
+            faqDtos.add(faqDto);
+        }
+        return faqDtos;
+    }
+
 
 
 }
