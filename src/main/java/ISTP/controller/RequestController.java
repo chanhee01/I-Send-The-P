@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 
 import static ISTP.domain.bloodDonation.BloodTypeName.*;
 import static ISTP.domain.bloodDonation.request.RequestStatusName.APPLICATION;
+import static ISTP.domain.bloodDonation.request.RequestStatusName.APPLICATION_ID;
 
 @RestController
 @RequiredArgsConstructor

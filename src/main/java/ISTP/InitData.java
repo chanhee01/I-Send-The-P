@@ -95,6 +95,8 @@ public class InitData {
             em.persist(faq1);em.persist(faq2);em.persist(faq3);em.persist(faq4);em.persist(faq5);
             em.persist(faq6);em.persist(faq7);em.persist(faq8);em.persist(faq9);em.persist(faq10);em.persist(faq11);
 
+
+
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천", true);
             Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories2, "bbb@naver.com", "서울시", true);
             Member member3 = new Member("loginId3", "password3", "test3", "별명3", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천시", true);
