@@ -22,7 +22,7 @@ public class RequestDto {
     private String nickname;
     private String phone_number;
 
-    public RequestDto(Request request, Member member) {
+    /*public RequestDto(Request request, Member member) {
         this.requestStatusId = request.getRequestStatusId();
         this.title = request.getTitle();
         this.sickness = request.getSickness();
@@ -36,5 +36,5 @@ public class RequestDto {
         this.createdTime = request.getCreateDate();
         this.nickname = member.getNickname();
         this.phone_number = member.getPhoneNumber();
-    }
+    }*/
 }

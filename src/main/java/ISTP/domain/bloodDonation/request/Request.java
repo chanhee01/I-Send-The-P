@@ -1,6 +1,7 @@
 package ISTP.domain.bloodDonation.request;
 
 import ISTP.domain.BaseEntity;
+import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,20 +21,18 @@ public class Request extends BaseEntity { // 헌혈 요청
     @GeneratedValue
     @Column(name = "request_id")
     private Long id;
-
-    private String sickness;
     private String title;
+    private String registerNumber;
+    private String hospitalName; // 병원명
+    private String hospitalNumber;
+    private Long bloodTypeId;
+    private String bloodProduct; // 혈액제제
+    private LocalDateTime deadLine; // 마감 날짜
+    private String relationship;
     private String content; // 요청 사연
-    private LocalDateTime duration; // 마감 날짜
-    private String number; //환자 등록 번호
-    private String hospital;
+    private Long bloodDonationTypeId; // 어떤 헌혈인지;
     @Column(name = "request_status_id")
     private Long requestStatusId; //요청글 처리 상태 요청신청, 요청진행, 요청완료
-    private Long bloodTypeId;
-    private String relationship;
-    private String requests_blood_type; // 무슨 헌혈인지
-    private String address;
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -42,22 +41,23 @@ public class Request extends BaseEntity { // 헌혈 요청
     protected Request() {
     }
 
-    public Request(Member member, String sickness, String title, String content, LocalDateTime duration, String number, String hospital,
-                   RequestStatusCategories requestStatus, BloodTypeCategories bloodType, String relationship, String requests_blood_type, String address) {
-        this.member = member;
-        this.sickness = sickness;
+    public Request(String title, String registerNumber, String hospitalName, String hospitalNumber,
+                   BloodTypeCategories bloodTypeCategories, String bloodProduct, LocalDateTime deadLine,
+                   String relationship, String content, BloodDonationCategories bloodDonationCategories,
+                   RequestStatusCategories requestStatusCategories, Member member) {
         this.title = title;
-        this.content = content;
-        this.duration = duration;
-        this.number = number;
-        this.hospital = hospital;
-        this.requestStatusId = requestStatus.getId();
-        this.bloodTypeId = bloodType.getId();
+        this.registerNumber = registerNumber;
+        this.hospitalName = hospitalName;
+        this.hospitalNumber = hospitalNumber;
+        this.bloodTypeId = bloodTypeCategories.getId();
+        this.bloodProduct = bloodProduct;
+        this.deadLine = deadLine;
         this.relationship = relationship;
-        this.requests_blood_type = requests_blood_type;
-        this.address = address;
-    } // createdTime도 생성자에서 받기
-
+        this.content = content;
+        this.bloodDonationTypeId = bloodDonationCategories.getId();
+        this.requestStatusId = requestStatusCategories.getId();
+        this.member = member;
+    }
 
     public void update_request() {
         this.requestStatusId = APPLICATION_ID;
