@@ -5,6 +5,7 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.dtos.request.RequestDto;
 import ISTP.dtos.request.RequestListDto;
+import ISTP.message.MessageService;
 import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
@@ -28,6 +29,7 @@ public class RequestController {
     private final MemberService memberService;
     //private final BloodCenterService bloodService;
     private final AlarmService alarmService;
+    private final MessageService messageService;
 
     @GetMapping("") // 게시글 리스트
     public Page<RequestListDto> requestList(@PageableDefault(size = 10) Pageable pageable) {
@@ -48,29 +50,27 @@ public class RequestController {
     }
 
     @PostMapping("")// 게시글 올리기
-    public Long bloodRequest(@Validated @RequestBody RequestRe request) {
+    public Long bloodRequest(@RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
-
 
         Request savedRequest = new Request(request.getTitle(), request.getRegisterNumber(), request.getHospitalName(),
                 request.getHospitalNumber(), request.getMyBloodTypeId(), request.getBloodProduct(), request.getDeadline(),
                 request.getRelationship(), request.getContent(), request.getBloodDonationTypeId(),
                 request.getBloodDonationTypeId(), member);
 
+        Long savedId = requestService.save(savedRequest);
 
         // 혈액형 고정, 기간 몰라서 3일로 고정함
 
-        Long savedId = requestService.save(savedRequest);
-
-        List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getMyBloodTypeId());
+        List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getBloodDonationTypeId());
         for (Member m : allByMemberBloodType) {
-            log.info("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
+            // messageService.sendOne(m.getPhoneNumber(), "헌혈이 필요합니다."); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
         }
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
         //=========규혁 추가==========
         alarmService.createAlarmForMember(member, savedRequest);
-        
+
         /*System.out.println("asdfsda" + acceptMember.getPhoneNumber());
         messageService.sendOne(acceptMember.getPhoneNumber(), "헌혈이 필요합니다.");*/
         return savedId;

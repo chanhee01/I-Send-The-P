@@ -59,6 +59,7 @@ public class Request extends BaseEntity { // 헌혈 요청
         this.member = member;
     }
 
+
     public void update_request() {
         this.requestStatusId = APPLICATION_ID;
     }

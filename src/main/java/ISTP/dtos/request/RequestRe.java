@@ -14,8 +14,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class RequestRe {
-
     private String title;
     private String registerNumber;
     private String hospitalName;
@@ -26,17 +26,4 @@ public class RequestRe {
     private String relationship;
     private String content;
     private Long bloodDonationTypeId;
-
-    public RequestRe(Member member, Request request) {
-        this.title = request.getTitle();
-        this.registerNumber = request.getRegisterNumber();
-        this.hospitalName = request.getHospitalName();
-        this.hospitalNumber = request.getHospitalNumber();
-        this.myBloodTypeId = member.getMyBloodTypeId();
-        this.bloodProduct = request.getBloodProduct();
-        this.deadline = request.getDeadLine();
-        this.relationship = request.getRelationship();
-        this.content = request.getContent();
-        this.bloodDonationTypeId = request.getBloodDonationTypeId();
-    }
 }
