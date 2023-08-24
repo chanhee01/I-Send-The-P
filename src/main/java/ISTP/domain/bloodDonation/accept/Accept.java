@@ -36,10 +36,10 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     public Accept() {
     }
 
-    public Accept(Member member, Request request, AcceptStatusCategories acceptStatus) {
+    public Accept(Member member, Request request, Long acceptStatusId) {
         this.member = member;
         this.request = request;
-        this.acceptStatusId = acceptStatus.getId();
+        this.acceptStatusId = acceptStatusId;
     }
 
     public void update_request() {

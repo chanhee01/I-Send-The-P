@@ -34,7 +34,7 @@ public class MemberController {
     private final AcceptService acceptService;
 
     //회원가입 로직
-    @PostMapping("")
+    @PostMapping
     public Long save(@Validated @RequestBody MemberSaveForm form, BindingResult bindingResult) {
 
         if (!(memberService.passwordReEnter(form.getPassword(), form.getRePassword()))) {
