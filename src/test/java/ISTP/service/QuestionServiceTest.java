@@ -33,13 +33,13 @@ class QuestionServiceTest {
         memberService.save(member1);
         memberService.save(member2);
         QuestionTypeCategories questionTypeCategories1 = new QuestionTypeCategories(ACCOUNT);
-        questionService.saveV2(questionTypeCategories1);
+        questionService.questionTypeSave(questionTypeCategories1);
         QuestionTypeCategories questionTypeCategories2 = new QuestionTypeCategories(PROGRAM);
-        questionService.saveV2(questionTypeCategories2);
+        questionService.questionTypeSave(questionTypeCategories2);
         QuestionTypeCategories questionTypeCategories3 = new QuestionTypeCategories(SUGGESTION);
-        questionService.saveV2(questionTypeCategories3);
+        questionService.questionTypeSave(questionTypeCategories3);
         QuestionTypeCategories questionTypeCategories4 = new QuestionTypeCategories(ETC);
-        questionService.saveV2(questionTypeCategories4);
+        questionService.questionTypeSave(questionTypeCategories4);
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
