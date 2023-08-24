@@ -120,7 +120,7 @@ class RequestServiceTest {
         requestService.save(request2);
         requestService.save(request3);
 
-        List<Member> regionByMemberBloodType = requestService.findRegionByMemberBloodType(request3.getAddress(), request3.getRequests_blood_type());
+        List<Member> regionByMemberBloodType = requestService.findRegionByMemberBloodType(request3.getAddress(), request3.getRequestsBloodType());
 
         for (Member member : regionByMemberBloodType) {
             System.out.println("member = " + member.getLoginId() + member.getAddress());

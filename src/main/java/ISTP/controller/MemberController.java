@@ -1,6 +1,7 @@
 package ISTP.controller;
 
 import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.dtos.member.MemberChangeDto;
 import ISTP.dtos.member.MemberSaveForm;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
@@ -13,6 +14,7 @@ import ISTP.service.MemberService;
 import ISTP.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -106,11 +108,19 @@ public class MemberController {
         return acceptService.count(findMember);
     }
 
+    @PutMapping("/change/{memberId}")
+    public ResponseEntity<?> change(@PathVariable Long memberId, @RequestBody MemberChangeDto memberChangeDto) {
+        Member member = memberService.findById(memberId);
+        ResponseEntity<?> responseEntity = memberService.changeMember(member, memberChangeDto.getPhoneNumber(), memberChangeDto.getUserNickname(),
+                memberChangeDto.getAddress());
+        return responseEntity;
+    }
+
     //닉네임 수정
     /**
      * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
      */
-    @PutMapping("/myPages/{memberId}/edit/nickname")
+    /*@PutMapping("/myPages/{memberId}/edit/nickname")
     public void editNickName(@PathVariable Long memberId, @RequestParam String nickname) {
         Member member = memberService.findById(memberId);
         memberService.changeNickname(member, nickname);
@@ -121,7 +131,7 @@ public class MemberController {
     public void editAddress(@PathVariable Long memberId, @RequestParam String address) {
         Member member = memberService.findById(memberId);
         memberService.changeAddress(member, address);
-    }
+    }*/
 
     //회원 삭제
     @DeleteMapping("/myPages/{memberId}/delete")

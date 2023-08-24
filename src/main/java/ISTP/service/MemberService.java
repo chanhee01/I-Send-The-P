@@ -4,11 +4,12 @@ import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import ISTP.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -100,6 +101,17 @@ public class MemberService {
         log.info("{}는 사용 가능한 휴대번호입니다.", phoneNumber);
         return true;
     }
+
+    public boolean duplicatedAddress(String address) {
+        Member findMember = memberRepository.findByAddress(address);
+        //이 멤버가 존재하면 이미 전화번호 있는 것
+        if(findMember != null) {
+            throw new IllegalArgumentException("이미 존재하는 주소입니다");
+        }
+        log.info("{}는 사용 가능한 주소입니다.", address);
+        return true;
+    }
+
     //비밀번호 재입력 확인 기능
     public boolean passwordReEnter(String password, String rePassword) {
         if(!(password.equals(rePassword))) {
@@ -151,11 +163,27 @@ public class MemberService {
         }
     }
 
+
+
     //주소 변경하는 기능
     @Transactional
     public void changeAddress(Member member, String changeAddress) {
             member.changeAddress(changeAddress);
             log.info("{}로 주소 변경 완료", changeAddress);
+    }
+
+    @Transactional
+    public ResponseEntity<?> changeMember(Member member, String phoneNumber, String name, String add) {
+        boolean nickname = duplicatedNickname(phoneNumber);
+        boolean phone = duplicatedPhoneNumber(name);
+        boolean address = duplicatedAddress(add);
+        if(address && phone && nickname) {
+            member.update(phoneNumber, name, add);
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 

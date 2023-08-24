@@ -150,6 +150,12 @@ public class Member extends BaseEntity { // 사용자
         }
     }
 
+    public void update(String phoneNumber, String nickname, String address) {
+        this.phoneNumber = phoneNumber;
+        this.nickname = nickname;
+        this.address = address;
+    }
+
     //헌혈 완료하면 호출하여 헌혈 횟수 증가시키기
     public void countPlus() {
         count++;

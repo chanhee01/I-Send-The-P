@@ -17,7 +17,7 @@ public class RequestDto {
     private LocalDateTime duration;
     private String relationship;
     private String content;
-    private String requests_blood_type;
+    private String requestsBloodType;
     private LocalDateTime createdTime;
     private String nickname;
     private String phone_number;
@@ -32,7 +32,7 @@ public class RequestDto {
         this.duration = request.getDuration();
         this.relationship = request.getRelationship();
         this.content = request.getContent();
-        this.requests_blood_type = request.getRequests_blood_type();
+        this.requestsBloodType = request.getRequestsBloodType();
         this.createdTime = request.getCreateDate();
         this.nickname = member.getNickname();
         this.phone_number = member.getPhoneNumber();

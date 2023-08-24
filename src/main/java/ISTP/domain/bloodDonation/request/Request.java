@@ -31,7 +31,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private Long requestStatusId; //요청글 처리 상태 요청신청, 요청진행, 요청완료
     private Long bloodTypeId;
     private String relationship;
-    private String requests_blood_type; // 무슨 헌혈인지
+    private String requestsBloodType; // 무슨 헌혈인지
     private String address;
 
     @JsonIgnore
@@ -43,7 +43,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     }
 
     public Request(Member member, String sickness, String title, String content, LocalDateTime duration, String number, String hospital,
-                   RequestStatusCategories requestStatus, BloodTypeCategories bloodType, String relationship, String requests_blood_type, String address) {
+                   RequestStatusCategories requestStatus, BloodTypeCategories bloodType, String relationship, String requestsBloodType, String address) {
         this.member = member;
         this.sickness = sickness;
         this.title = title;
@@ -54,7 +54,7 @@ public class Request extends BaseEntity { // 헌혈 요청
         this.requestStatusId = requestStatus.getId();
         this.bloodTypeId = bloodType.getId();
         this.relationship = relationship;
-        this.requests_blood_type = requests_blood_type;
+        this.requestsBloodType = requestsBloodType;
         this.address = address;
     } // createdTime도 생성자에서 받기
 
