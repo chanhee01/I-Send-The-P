@@ -11,7 +11,6 @@ import lombok.ToString;
 @Entity
 @Getter
 @NoArgsConstructor
-@ToString(of = {"id", "title", "content", "boardType"})
 public class Board extends BaseEntity {
 
     @Id
