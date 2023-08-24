@@ -13,9 +13,11 @@ public class FaqDto {
     private String question;
     @Length(max = 10000)
     private String answer;
+    private Long id;
 
     public FaqDto(Faq faq) {
         this.question = faq.getQuestion();
         this.answer = faq.getAnswer();
+        this.id = faq.getId();
     }
 }

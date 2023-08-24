@@ -39,7 +39,7 @@ public class AcceptController {
         return savedId;
     }
 
-    @PostMapping("/{requestId}/change_finish/{acceptId}") // 헌혈 후 완료버튼 누르기
+    @PutMapping("/{requestId}/change_finish/{acceptId}") // 헌혈 후 완료버튼 누르기
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
         acceptService.update_finish(accept);
@@ -48,7 +48,7 @@ public class AcceptController {
         memberService.countPlus(accept.getMember());
     }
 
-    @PostMapping("/{requestId}/change_cancel/{acceptId}") // 수락했는데 취소하는것
+    @PutMapping("/{requestId}/change_cancel/{acceptId}") // 수락했는데 취소하는것
     public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
         acceptService.update_cancel(accept);

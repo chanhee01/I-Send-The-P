@@ -110,14 +110,14 @@ public class MemberController {
     /**
      * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
      */
-    @PostMapping("/myPages/{memberId}/edit/nickname")
+    @PutMapping("/myPages/{memberId}/edit/nickname")
     public void editNickName(@PathVariable Long memberId, @RequestParam String nickname) {
         Member member = memberService.findById(memberId);
         memberService.changeNickname(member, nickname);
     }
 
     //주소 수정
-    @PostMapping("/myPages/{memberId}/edit/address")
+    @PutMapping("/myPages/{memberId}/edit/address")
     public void editAddress(@PathVariable Long memberId, @RequestParam String address) {
         Member member = memberService.findById(memberId);
         memberService.changeAddress(member, address);
