@@ -5,7 +5,8 @@ import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.accept.AcceptStatus;
 import ISTP.domain.bloodDonation.request.Request;
-import ISTP.domain.bloodDonation.request.RequestStatus;
+import ISTP.domain.bloodDonation.request.RequestStatusCategories;
+import ISTP.domain.bloodDonation.request.RequestStatusName;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,9 @@ public class AcceptServiceTest {
 
         memberService.save(member);
         BloodTypeCategories bloodTypeCategories = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        RequestStatusCategories byRequestStatus = requestService.findByRequestStatus(RequestStatusName.APPLICATION);
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
-                "1111-2222", "병원", RequestStatus.신청, bloodTypeCategories,
+                "1111-2222", "병원", byRequestStatus, bloodTypeCategories,
                 "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);
@@ -53,8 +55,9 @@ public class AcceptServiceTest {
 
         memberService.save(member);
         BloodTypeCategories bloodTypeCategories = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        RequestStatusCategories byRequestStatus = requestService.findByRequestStatus(RequestStatusName.APPLICATION);
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
-                "1111-2222", "병원", RequestStatus.신청, bloodTypeCategories,
+                "1111-2222", "병원", byRequestStatus, bloodTypeCategories,
                 "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);

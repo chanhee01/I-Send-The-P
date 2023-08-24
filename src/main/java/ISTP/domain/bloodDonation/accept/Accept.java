@@ -2,13 +2,10 @@ package ISTP.domain.bloodDonation.accept;
 
 import ISTP.domain.BaseEntity;
 import ISTP.domain.bloodDonation.request.Request;
-import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 import static jakarta.persistence.EnumType.STRING;
 
