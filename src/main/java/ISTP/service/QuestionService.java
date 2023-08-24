@@ -94,5 +94,8 @@ public class QuestionService {
     public List<QuestionTypeCategories> findQuestionTypeAll() {
         return questionTypeCategoriesRepository.findAll();
     }
+    public QuestionTypeCategories find(Long questionTypeId) {
+        return questionTypeCategoriesRepository.findById(questionTypeId).get();
+    }
 
 }

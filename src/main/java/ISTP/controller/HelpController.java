@@ -43,7 +43,9 @@ public class HelpController {
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
         Member member = memberService.findById(memberId);
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(form.getQuestionType());
+        Long questionTypeId = form.getQuestionType();
+        QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
         Question question = new Question(form.getTitle(), form.getContent(), questionTypeCategories, member);
         questionService.save(question);
         return question.getId();
@@ -70,7 +72,9 @@ public class HelpController {
             //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 수정 시 오류 발생");
         }
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(form.getQuestionType());
+        Long questionTypeId = form.getQuestionType();
+        QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
         Question question = questionService.findById(questionId);
         questionService.updateQuestion(question, form.getTitle(), form.getContent(), questionTypeCategories);
         return question.getId();
