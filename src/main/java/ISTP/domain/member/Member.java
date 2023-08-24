@@ -32,9 +32,8 @@ public class Member extends BaseEntity { // 사용자
     private String name;
     private String nickname;
     private int age; //생년월일이어야할듯
-    //이거 boolean으로 수정해함
-    @Enumerated(STRING)
-    private Gender gender;
+
+    private boolean gender; // true 면 남자, false 면 여자
     private String phoneNumber;
     @Enumerated(STRING)
     private BloodType myBloodType;
@@ -97,7 +96,7 @@ public class Member extends BaseEntity { // 사용자
         this.alarmStatus = true;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, Gender gender, String phoneNumber, BloodType myBloodType, String email, String address, boolean alarmStatus) {
+    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, BloodType myBloodType, String email, String address, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
