@@ -85,7 +85,7 @@ public class HelpController {
     }
 
     //1:1문의내역 답변 달기
-    @PostMapping("/{memberId}/list/{questionId}/answer")
+    @PostMapping("/{memberId}/{questionId}/answer")
     public Long answerSave(@Validated @RequestBody AnswerSaveForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -110,7 +110,5 @@ public class HelpController {
         }
         return faqDtos;
     }
-
-
 
 }

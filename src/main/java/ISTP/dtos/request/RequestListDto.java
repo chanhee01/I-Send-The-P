@@ -13,6 +13,7 @@ public class RequestListDto {
     private Long requestStatusId;
     private String content;
     private LocalDateTime createdTime;
+    private Long id;
 
     public RequestListDto(Request request) {
         this.bloodTypeId = request.getBloodTypeId();
@@ -20,5 +21,6 @@ public class RequestListDto {
         this.requestStatusId = request.getRequestStatusId();
         this.content = request.getContent();
         this.createdTime = request.getCreateDate();
+        this.id = request.getId();
     }
 }

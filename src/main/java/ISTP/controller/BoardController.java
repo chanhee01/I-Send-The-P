@@ -67,7 +67,7 @@ public class BoardController {
     }
 
     //게시글 수정
-    @PostMapping("{boardId}/edit")
+    @PutMapping("{boardId}/edit")
     public Long editBoard(@Validated @RequestBody BoardEditForm form, BindingResult bindingResult, @PathVariable Long boardId) {
 
         if(bindingResult.hasErrors()) {

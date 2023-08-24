@@ -9,12 +9,14 @@ import java.time.LocalDateTime;
 public class MyRequestDto {
     private Long bloodTypeId;
     private String title;
+    private String content;
     private Long requestStatusId;
     private LocalDateTime createdTime;
 
     public MyRequestDto(Request request) {
         this.bloodTypeId = request.getBloodTypeId();
         this.title = request.getTitle();
+        this.content = request.getContent();
         this.requestStatusId = request.getRequestStatusId();
         this.createdTime = request.getCreateDate();
     }

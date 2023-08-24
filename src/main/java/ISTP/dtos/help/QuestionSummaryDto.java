@@ -16,6 +16,7 @@ public class QuestionSummaryDto {
     private LocalDateTime lastModifiedDate;
     private Long questionTypeId;
     private boolean answerStatus;
+    private Long id;
 
     public QuestionSummaryDto(Question question) {
         this.title = question.getTitle();
@@ -24,5 +25,6 @@ public class QuestionSummaryDto {
         this.questionTypeId = question.getQuestionTypeId();
         this.lastModifiedDate = question.getLastModifiedDate();
         this.answerStatus = question.isAnswerStatus();
+        this.id = question.getId();
     }
 }

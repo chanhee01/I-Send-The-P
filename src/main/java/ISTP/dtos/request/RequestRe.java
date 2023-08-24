@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class RequestRe {
 
     @NotBlank
@@ -16,14 +19,32 @@ public class RequestRe {
     private String title;
     @NotBlank
     private String content;
+    private LocalDateTime time;
     @NotBlank
     private String number;
     @NotBlank
     private String hospital;
-    // private BloodType bloodType; // 여기서 라디오버튼 선택 어케하지??
     @NotBlank
     private String relationship;
     @NotBlank
     private String requests_blood_type;
     private String address;
+
+    /*public RequestRe(String sickness, String title, String content, LocalDateTime time, String number, String hospital,
+                     String relationship, String requests_blood_type, String address) {
+        this.sickness = sickness;
+        this.title = title;
+        this.content = content;
+        this.time = timer(time);
+
+    }
+
+    public List<Long> timer(LocalDateTime time) {
+        long days = Duration.between(time, LocalDateTime.now()).toDays();
+        long hours = Duration.between(time, LocalDateTime.now()).toHours();
+        long minutes = Duration.between(time, LocalDateTime.now()).toMinutes();
+
+        List<Long> times = new ArrayList<>();
+        return times;
+    }*/
 }

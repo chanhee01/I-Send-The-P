@@ -16,7 +16,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     Optional<Request> findById(Long requestId);
 
-    @Query("select r from Request r order by r.createDate desc")
+    @Query("select r from Request r where r.requestStatusId = 1L or r.requestStatusId = 2L order by r.createDate desc")
     Page<Request> findByDESC(Pageable pageable);
 
     @EntityGraph(attributePaths = {"member"})

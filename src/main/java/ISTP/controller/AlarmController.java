@@ -43,7 +43,7 @@ public class AlarmController {
     }
 
     //알람설졍 변경
-    @PostMapping("/{memberId}/setting")
+    @PutMapping("/{memberId}/setting")
     public Boolean myAlarmSetting(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         memberService.changeAlarm(member);

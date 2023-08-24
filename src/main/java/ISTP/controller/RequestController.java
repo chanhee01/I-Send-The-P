@@ -58,7 +58,7 @@ public class RequestController {
         BloodTypeCategories bloodType_A_PLUS = memberService.findByBloodType(A_PLUS);
         RequestStatusCategories byRequestStatus = requestService.findByRequestStatus(APPLICATION);
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
-                LocalDateTime.now().plusDays(3), request.getNumber(), request.getHospital(), byRequestStatus,
+                request.getTime(), request.getNumber(), request.getHospital(), byRequestStatus,
                 bloodType_A_PLUS, request.getRelationship(), request.getRequests_blood_type(), request.getAddress());
         // 혈액형 고정, 기간 몰라서 3일로 고정함
 
