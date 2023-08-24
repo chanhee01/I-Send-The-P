@@ -12,6 +12,7 @@ public class MyRequestDto {
     private String content;
     private Long requestStatusId;
     private LocalDateTime createdTime;
+    private Long id;
 
     public MyRequestDto(Request request) {
         this.bloodTypeId = request.getBloodTypeId();
@@ -19,5 +20,6 @@ public class MyRequestDto {
         this.content = request.getContent();
         this.requestStatusId = request.getRequestStatusId();
         this.createdTime = request.getCreateDate();
+        this.id = request.getId();
     }
 }

@@ -29,22 +29,4 @@ public class RequestRe {
     @NotBlank
     private String requests_blood_type;
     private String address;
-
-    /*public RequestRe(String sickness, String title, String content, LocalDateTime time, String number, String hospital,
-                     String relationship, String requests_blood_type, String address) {
-        this.sickness = sickness;
-        this.title = title;
-        this.content = content;
-        this.time = timer(time);
-
-    }
-
-    public List<Long> timer(LocalDateTime time) {
-        long days = Duration.between(time, LocalDateTime.now()).toDays();
-        long hours = Duration.between(time, LocalDateTime.now()).toHours();
-        long minutes = Duration.between(time, LocalDateTime.now()).toMinutes();
-
-        List<Long> times = new ArrayList<>();
-        return times;
-    }*/
 }

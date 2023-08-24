@@ -1,7 +1,10 @@
 package ISTP.controller;
 
+import ISTP.domain.banner.Banner;
 import ISTP.domain.member.Member;
+import ISTP.dtos.member.BannerDto;
 import ISTP.dtos.member.MemberRankingDto;
+import ISTP.service.BannerService;
 import ISTP.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,7 @@ import java.util.List;
 public class HomeController {
 
     private final MemberService memberService;
+    private final BannerService bannerService;
 
     //랭킹보여줄 DTO
     @ResponseBody
@@ -29,8 +33,14 @@ public class HomeController {
         return memberRankingDtos;
     }
 
-    @GetMapping("banner")
-    public String banner() {
-        return "https://istp.s3.ap-northeast-2.amazonaws.com/1.jfif";
+    @GetMapping("/banner")
+    public List<BannerDto> banner() {
+        List<String> banner = bannerService.banner();
+        List<BannerDto> bannerDtos = new ArrayList<>();
+        for(String url : banner) {
+            BannerDto bannerDto = new BannerDto(url);
+            bannerDtos.add(bannerDto);
+        }
+        return bannerDtos;
     }
 }

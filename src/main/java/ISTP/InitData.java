@@ -1,7 +1,11 @@
 package ISTP;
 
+<<<<<<< HEAD
 import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodDonationName;
+=======
+import ISTP.domain.banner.Banner;
+>>>>>>> de1ab1ad306f64fc5e785e66ce16466751f61e94
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusName;
@@ -82,6 +86,15 @@ public class InitData {
             em.persist(acceptStatusCategories2);
             em.persist(acceptStatusCategories3);
 
+            Banner banner1 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_03.png");
+            Banner banner2 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_01.jpg");
+            Banner banner3 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_02.png");
+            Banner banner4 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_04.png");
+
+            em.persist(banner1);
+            em.persist(banner2);
+            em.persist(banner3);
+            em.persist(banner4);
 
             Faq faq1 = new Faq("Q 1. 헌혈을 하려면 신분증이 꼭 필요한가요?", "A 1. 혈액관리법 시행규칙에 따라 개인신상정보가 확인된 분들만 헌혈에 참여하실 수 있도록 헌혈 전에 신분증을 확인합니다. 신분증을 확인함으로써 헌혈자는 헌혈기록 및 검사결과의 정확한 관리가 가능하고 수혈자는 대리헌혈 및 검사목적의 헌혈이 방지되어 안전한 혈액을 수혈 받을 수 있습니다.", QuestionTypeName.PARTICIPATION_ID);
             Faq faq2 = new Faq("Q 2. 지정 헌혈이란 무엇인가요?", "A 2. 의료기관 및 환자가 지정 의뢰한 헌혈지원자가 대한적십자사 혈액원에서 헌혈 후 그 혈액을 지정된 수혈자에게 수혈되는 헌혈을 말합니다. 본인이 지정헌혈자인 경우 의료기관이 발급한 '지정헌혈 안내문'을 환자 또는 보호자로부터 문자로 전송 받거나 혹은 출력물을 받아 지참하고 헌혈의집을 방문하여 주시기 바랍니다.\n" +
