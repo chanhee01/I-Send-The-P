@@ -59,7 +59,7 @@ public class HelpController {
     }
 
     //문의 완료가 되지 않은 상태에서 1:1 문의글 수정하기
-    @PostMapping("/{memberId}/list/{questionId}/edit")
+    @PostMapping("/{memberId}/list/edit/{questionId}")
     public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -74,7 +74,7 @@ public class HelpController {
 
     //상세 문의내역
     @ResponseBody
-    @GetMapping("/{memberId}/list/{questionId}/detail")
+    @GetMapping("/{questionId}/detail")
     public HelpDto help(@PathVariable Long memberId, @PathVariable Long questionId) {
         Question question = questionService.findById(questionId);
         Answer answer = answerService.findByQuestionId(questionId);

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class QuestionSummaryDto {
 
     private String title;
+    private String content;
     private LocalDateTime createdTime;
     private LocalDateTime lastModifiedDate;
     private Long questionTypeId;
@@ -18,6 +19,7 @@ public class QuestionSummaryDto {
 
     public QuestionSummaryDto(Question question) {
         this.title = question.getTitle();
+        this.content = question.getContent();
         this.createdTime = question.getCreateDate();
         this.questionTypeId = question.getQuestionTypeId();
         this.lastModifiedDate = question.getLastModifiedDate();
