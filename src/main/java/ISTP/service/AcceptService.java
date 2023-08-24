@@ -90,4 +90,8 @@ public class AcceptService {
         List<Accept> all = acceptRepository.findAllByAcceptStatusIdAndIsOngoing(acceptStatusId, ongoing);
         return all;
     }
+
+    public List<AcceptStatusCategories> findAcceptStatusAll() {
+        return acceptStatusCategoriesRepository.findAll();
+    }
 }

@@ -50,7 +50,7 @@ public class InitData {
         @Transactional
         public void init() {
             BloodDonationCategories bloodDonationCategories1 = new BloodDonationCategories(BloodDonationName.WHOLE_BLOOD);
-            BloodDonationCategories bloodDonationCategories2 = new BloodDonationCategories(BloodDonationName.PLATELET);
+            BloodDonationCategories bloodDonationCategories2 = new BloodDonationCategories(BloodDonationName.PLASMA);
             BloodDonationCategories bloodDonationCategories3 = new BloodDonationCategories(BloodDonationName.PLATELET);
             BloodDonationCategories bloodDonationCategories4 = new BloodDonationCategories(BloodDonationName.PLASMA_PLATELET);
             em.persist(bloodDonationCategories1);

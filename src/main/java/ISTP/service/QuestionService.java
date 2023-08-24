@@ -91,4 +91,8 @@ public class QuestionService {
         questionRepository.deleteById(questionId);
     }
 
+    public List<QuestionTypeCategories> findQuestionTypeAll() {
+        return questionTypeCategoriesRepository.findAll();
+    }
+
 }
