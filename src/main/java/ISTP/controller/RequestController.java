@@ -76,24 +76,6 @@ public class RequestController {
         return savedId;
     }
 
-    /*@PutMapping("/status/{requestId}") // 신청중 -> 진행중 버튼
-    public void request_status(@PathVariable Long requestId) {
-        Request request = requestService.findById(requestId);
-        requestService.changeStatus(request);
-    }
-
-    @PutMapping("/finish/{requestId}") // 진행중 -> 완료 버튼
-    public void update_finish(@PathVariable Long requestId) {
-        Request request = requestService.findById(requestId);
-        requestService.changeStatus2(request);
-    }
-
-    @PutMapping("/request/{requestId}") // 취소했을 시 -> 다시 처음으로 신청버튼
-    public void update_request(@PathVariable Long requestId) {
-        Request request = requestService.findById(requestId);
-        requestService.changeStatus3(request);
-    }*/
-
     @DeleteMapping("/delete/{requestId}") // 글 삭제
     public void delete_request(@PathVariable Long requestId) {
         requestService.delete(requestId);

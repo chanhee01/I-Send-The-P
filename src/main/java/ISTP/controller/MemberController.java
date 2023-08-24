@@ -53,7 +53,7 @@ public class MemberController {
     }
 
     //회원가입 시 로그인 아이디 중복 확인 로직
-    @PostMapping("/save/check_duplicate/loginId")
+    @PostMapping("/save/duplicate/loginId")
     @ResponseBody
     public String checkDuplicateLoginId(@RequestParam String loginId) {
          if(memberService.duplicatedLoginId(loginId)) {
@@ -65,7 +65,7 @@ public class MemberController {
     }
 
     //회원가입 시 닉네임 중복 확인 로직
-    @PostMapping("/save/check_duplicate/nickname")
+    @PostMapping("/save/duplicate/nickname")
     @ResponseBody
     public String checkDuplicateNickname(@RequestParam String nickname) {
         if(memberService.duplicatedNickname(nickname)) {
