@@ -18,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/alarms")
 @Slf4j
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AlarmController {
 
     private final MemberService memberService;

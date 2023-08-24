@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/accepts")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class AcceptController {
 
     private final MemberService memberService;

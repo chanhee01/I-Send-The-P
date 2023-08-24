@@ -41,7 +41,7 @@ public class MemberSaveForm {
     private String address;
 
     @NotNull
-    private String bloodType;
+    private Long bloodType;
 
     @NotBlank
     private String nickname;

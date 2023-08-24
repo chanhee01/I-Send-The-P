@@ -94,7 +94,7 @@ public class Member extends BaseEntity { // 사용자
         this.alarmStatus = true;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, BloodTypeCategories myBloodType, String email, String address, boolean alarmStatus) {
+    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, Long myBloodType, String email, String address, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
@@ -102,7 +102,7 @@ public class Member extends BaseEntity { // 사용자
         this.age = age;
         this.gender = gender;
         this.phoneNumber = phoneNumber;
-        this.myBloodTypeId = myBloodType.getId();
+        this.myBloodTypeId = myBloodType;
         this.email = email;
         this.address = address;
         this.alarmStatus = alarmStatus;

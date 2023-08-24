@@ -117,6 +117,7 @@ public class InitData {
 
 
 
+<<<<<<< HEAD
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories5, "aaa@naver.com", "인천", true);
             Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories5, "bbb@naver.com", "서울시", true);
             Member member3 = new Member("loginId3", "password3", "test3", "별명3", 10, true, "010-1111-2222", bloodTypeCategories5, "aaa@naver.com", "인천시", true);
@@ -127,6 +128,18 @@ public class InitData {
             Member member8 = new Member("loginId8", "password8", "test8", "별명8", 20, false, "010-3333-4444", bloodTypeCategories5, "bbb@naver.com", "인천시", true);
             Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, true, "01041539032", bloodTypeCategories1, "aaa@naver.com", "인천", true);
             Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, false, "01076645199", bloodTypeCategories3, "bbb@naver.com", "인천시", true);
+=======
+            Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories5.getId(), "aaa@naver.com", "인천", true);
+            Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories5.getId(), "bbb@naver.com", "서울시", true);
+            Member member3 = new Member("loginId3", "password3", "test3", "별명3", 10, true, "010-1111-2222", bloodTypeCategories5.getId(), "aaa@naver.com", "인천시", true);
+            Member member4 = new Member("loginId4", "password4", "test4", "별명4", 20, false, "010-3333-4444", bloodTypeCategories5.getId(), "bbb@naver.com", "인천시", true);
+            Member member5 = new Member("loginId5", "password5", "test5", "별명5", 10, true, "010-1111-2222", bloodTypeCategories5.getId(), "aaa@naver.com", "인천시", true);
+            Member member6 = new Member("loginId6", "password6", "test6", "별명6", 20, false, "010-3333-4444", bloodTypeCategories5.getId(), "bbb@naver.com", "인천시", true);
+            Member member7 = new Member("loginId7", "password7", "test7", "별명7", 10, true, "010-1111-2222", bloodTypeCategories5.getId(), "aaa@naver.com", "인천시", true);
+            Member member8 = new Member("loginId8", "password8", "test8", "별명8", 20, false, "010-3333-4444", bloodTypeCategories5.getId(), "bbb@naver.com", "인천시", true);
+            Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, true, "01041539032", bloodTypeCategories1.getId(), "aaa@naver.com", "인천 부평구", true);
+            Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, false, "01076645199", bloodTypeCategories3.getId(), "bbb@naver.com", "인천시", true);
+>>>>>>> 4b9088ff705d23784051c075f4e7be14f07fa08e
             for(int i = 0; i  < 14; i++) {
                 member1.countPlus();
             }

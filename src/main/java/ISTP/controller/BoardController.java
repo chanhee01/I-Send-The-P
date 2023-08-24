@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/boards")
 @Slf4j
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class BoardController {
 
     private final BoardService boardService;

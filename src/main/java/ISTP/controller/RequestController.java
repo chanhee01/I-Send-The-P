@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/requests")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RequestController {
 
     private final RequestService requestService;
@@ -68,6 +70,11 @@ public class RequestController {
         List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getBloodDonationTypeId());
         for (Member m : allByMemberBloodType) {
             List<BloodCenterDTO> hospital = bloodCenterService.API(m.getAddress());
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 4b9088ff705d23784051c075f4e7be14f07fa08e
             StringBuilder messageBuilder = new StringBuilder();
             List<String> infoList = new ArrayList<>();
             for (BloodCenterDTO bloodCenterDTO : hospital) {
@@ -78,6 +85,7 @@ public class RequestController {
                 infoList.add(info);
                 messageBuilder.append(info).append("\n"); // 문자열 추가
             }
+<<<<<<< HEAD
             String finalMessage = messageBuilder.toString();
             System.out.println("finalMessage = " + finalMessage);
 
@@ -85,6 +93,15 @@ public class RequestController {
            /* messageService.sendOne(m.getPhoneNumber(), " 사용자와 같은 혈액형을 가진 환자로부터 헌혈 요청이 도착했습니다. \n" +
                     " 헌혈이 가능한 상태라면, 환자에게 희망을 선물해주세요!.\n" +
                     "전화번"); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음*/
+=======
+
+            String finalMessage = messageBuilder.toString();
+            System.out.println("finalMessage = " + finalMessage);
+
+            messageService.sendOne(m.getPhoneNumber(), "사용자와 같은 혈액형을 가진 환자로부터 헌혈 요청이 도착했습니다.\n" +
+                    "헌혈이 가능한 상태라면, 환자에게 희망을 선물해주세요!.\n" +
+                     finalMessage); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음*/
+>>>>>>> 4b9088ff705d23784051c075f4e7be14f07fa08e
         }
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?

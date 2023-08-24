@@ -27,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 @Slf4j
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MemberController {
 
     private final MemberService memberService;
@@ -48,17 +49,16 @@ public class MemberController {
 
         }
 
-        BloodTypeCategories byBloodType = memberService.findByBloodType(form.getBloodType());
         Member member = new Member(form.getLoginId(), form.getPassword(),
                 form.getName(), form.getNickname(), form.getAge(), form.isGender(),
-                form.getPhoneNumber(), byBloodType, form.getEmail(), form.getAddress(), true);
+                form.getPhoneNumber(), form.getBloodType(), form.getEmail(), form.getAddress(), true);
 
         Long memberId = memberService.save(member);
         return memberId;
     }
 
     //회원가입 시 로그인 아이디 중복 확인 로직
-    @PostMapping("/duplicate/")
+    @PostMapping("/duplicate/loginId")
     @ResponseBody
     public String checkDuplicateLoginId(@RequestParam String loginId) {
          if(memberService.duplicatedLoginId(loginId)) {

@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class HomeController {
 
     private final MemberService memberService;

@@ -14,5 +14,6 @@ public class AcceptStatusDto {
     public AcceptStatusDto(AcceptStatusCategories acceptStatusCategories) {
         this.id = acceptStatusCategories.getId();
         this.acceptStatus = acceptStatusCategories.getAcceptStatus();
+        //adfs
     }
 }
