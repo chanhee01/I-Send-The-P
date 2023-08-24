@@ -6,11 +6,13 @@ import ISTP.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.ToString;
 
 import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
+@ToString(of = {"id", "request", "acceptStatusId", "isOngoing"})
 public class Accept extends BaseEntity { // 헌혈 해주는 사람
 
     @Id
@@ -29,6 +31,7 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+    private boolean isOngoing = true; // 헌혈완료 후 아직 헌혈기간 On되지 않은 상태
 
     public Accept() {
     }
@@ -54,5 +57,9 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     //==연관관계 메서드==//
     public void changeAccept(Member member) {
         this.member = member;
+    }
+
+    public void changeIsFinished() {
+        isOngoing = false;
     }
 }

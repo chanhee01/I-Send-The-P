@@ -18,4 +18,6 @@ public interface AcceptRepository extends JpaRepository<Accept, Long> {
 
     @Query("select count(a) from Accept a join a.member m where m.id = :memberId and a.acceptStatusId = :statusId")
     Long count(@Param(value = "memberId") Long memberId, @Param(value = "statusId") Long status);
+
+    List<Accept> findAllByAcceptStatusIdAndIsOngoing(Long acceptStatusId, Boolean ongoing);
 }
