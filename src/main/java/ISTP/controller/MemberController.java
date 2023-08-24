@@ -1,6 +1,7 @@
 package ISTP.controller;
 
 import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.dtos.login.LoginDtoRequest;
 import ISTP.dtos.member.MemberChangeDto;
 import ISTP.dtos.member.MemberEditMyPageDto;
 import ISTP.dtos.member.MemberSaveForm;
@@ -10,11 +11,16 @@ import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
 import ISTP.dtos.request.MyAcceptDto;
 import ISTP.dtos.request.MyRequestDto;
+import ISTP.login.LoginService;
+import ISTP.login.SessionConst;
 import ISTP.service.AcceptService;
 import ISTP.service.MemberService;
 import ISTP.service.RequestService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -33,6 +39,8 @@ public class MemberController {
     private final MemberService memberService;
     private final RequestService requestService;
     private final AcceptService acceptService;
+    private final LoginService loginService;
+    private final HttpSession session;
 
     //회원가입 로직
     @PostMapping
@@ -102,7 +110,38 @@ public class MemberController {
         return myPageDto;
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login (@Validated @RequestBody LoginDtoRequest request, BindingResult bindingResult,
+                                    HttpServletRequest httpServletRequest) {
+        if(bindingResult.hasErrors()) {
+            log.info("로그인 오류");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            // 로그인 페이지로 리다이렉트
+        }
 
+        Member loginMember = loginService.login(request.getLoginId(), request.getPassword());
+
+        if(loginMember == null) {
+            bindingResult.reject("loginFail");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST); // 여기도 로그인 실패로 리다이렉트
+        }
+
+        HttpSession session = httpServletRequest.getSession();
+        // request.getSession() -> 세션이 있으면 세션 반환, 없으면 신규 세션을 생성
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        // 세션에 로그인 회원 정보를 보관
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout (HttpServletRequest httpServletRequest) {
+        HttpSession session = httpServletRequest.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        return new ResponseEntity(HttpStatus.OK); // 홈 페이지로 리다이렉트
+    }
 
     @GetMapping("/myPages/{memberId}/edit")
     public MemberEditMyPageDto myEditPage(@PathVariable Long memberId)  {

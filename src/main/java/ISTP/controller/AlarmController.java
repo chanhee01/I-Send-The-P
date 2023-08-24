@@ -3,8 +3,10 @@ package ISTP.controller;
 import ISTP.domain.member.Member;
 import ISTP.dtos.alarm.AcceptAndIsReadDto;
 import ISTP.dtos.alarm.AlarmSummaryDto;
+import ISTP.login.SessionConst;
 import ISTP.service.AlarmService;
 import ISTP.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +25,15 @@ public class AlarmController {
 
     private final MemberService memberService;
     private final AlarmService alarmService;
+    private final HttpSession session;
 
     @ResponseBody
-    @GetMapping("/{memberId}")
-    public Map<String, Object> myAlarmList(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
+    @GetMapping("")
+    public Map<String, Object> myAlarmList() {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         boolean alarmStatus = member.isAlarmStatus(); //알람 수신 상태
 
-        List<AcceptAndIsReadDto> allAccept = alarmService.findAllAccept(memberId);
+        List<AcceptAndIsReadDto> allAccept = alarmService.findAllAccept(member.getId());
         List<AlarmSummaryDto> alarmDtoList = new ArrayList<>();
         for (AcceptAndIsReadDto acceptAndIsReadDto : allAccept) {
             AlarmSummaryDto alarmDto = new AlarmSummaryDto(acceptAndIsReadDto);
@@ -43,10 +46,10 @@ public class AlarmController {
         return result;
     }
 
-    //알람설졍 변경
-    @PutMapping("/{memberId}/setting")
-    public Boolean myAlarmSetting(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
+    //알람설정 변경
+    @PutMapping("/setting")
+    public Boolean myAlarmSetting() {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         memberService.changeAlarm(member);
         return member.isAlarmStatus();
     }

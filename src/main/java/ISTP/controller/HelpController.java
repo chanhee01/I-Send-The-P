@@ -7,9 +7,11 @@ import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import ISTP.dtos.faq.FaqDto;
 import ISTP.dtos.help.*;
+import ISTP.login.SessionConst;
 import ISTP.service.AnswerService;
 import ISTP.service.MemberService;
 import ISTP.service.QuestionService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -29,20 +31,20 @@ public class HelpController {
     private final MemberService memberService;
     private final QuestionService questionService;
     private final AnswerService answerService;
+    private final HttpSession session;
 
     //1:1 문의 글 작성
     /**
      * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯
      */
     @PostMapping("")
-    public Long save(@Validated @RequestParam Long memberId,
-                     @RequestBody QuestionSaveForm form, BindingResult bindingResult) {
+    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
-        Member member = memberService.findById(memberId);
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         Long questionTypeId = form.getQuestionType();
         QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
         QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
@@ -54,8 +56,9 @@ public class HelpController {
     //1:1 문의내역 리스트
     @ResponseBody
     @GetMapping("")
-    public List<QuestionSummaryDto> questionList(@RequestParam Long typeId, Long memberId) {
-        List<Question> questions = questionService.findAllByQuestionTypeId(memberId, typeId);
+    public List<QuestionSummaryDto> questionList(@RequestParam Long typeId) {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        List<Question> questions = questionService.findAllByQuestionTypeId(member.getId(), typeId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {
             QuestionSummaryDto questionSummaryDto = new QuestionSummaryDto(question);
@@ -66,12 +69,13 @@ public class HelpController {
 
     //문의 완료가 되지 않은 상태에서 1:1 문의글 수정하기
     @PatchMapping("/{questionId}")
-    public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
+    public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 수정 시 오류 발생");
         }
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         Long questionTypeId = form.getQuestionType();
         QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
         QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
@@ -98,10 +102,15 @@ public class HelpController {
             //에러처리 어케 할까여
             throw new IllegalArgumentException("게시글 작성 시 오류 발생");
         }
-        Member member = memberService.findById(memberId);
-        Question question = questionService.findById(questionId);
-        Answer answer = answerService.createAnswer(form.getContent(), member, question);
-        return answer.getId();
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if (member.getId() == 1) {
+            Question question = questionService.findById(questionId);
+            Answer answer = answerService.createAnswer(form.getContent(), member, question);
+            return answer.getId();
+        }
+        else {
+            throw new IllegalArgumentException();
+        }
     }
 
     //faq 답변 보여주기

@@ -6,8 +6,10 @@ import ISTP.dtos.board.BoardSaveForm;
 import ISTP.dtos.board.BoardSummaryDto;
 import ISTP.domain.board.Board;
 import ISTP.domain.member.Member;
+import ISTP.login.SessionConst;
 import ISTP.service.BoardService;
 import ISTP.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final MemberService memberService;
+    private final HttpSession session;
 
     //공지사항 리스트 조회
     @ResponseBody
@@ -52,7 +55,7 @@ public class BoardController {
             //에러처리 어케 할까여
             throw new IllegalArgumentException("게시글 작성 시 오류 발생");
         }
-        Member member = memberService.findById(1L);
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         Board board = new Board(form.getTitle(), form.getContent(), form.isNotice(), member);
         boardService.save(board);
         return board.getId();

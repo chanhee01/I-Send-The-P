@@ -151,7 +151,7 @@ public class RequestController {
 
     //내가 등록한 긴급헌혈 요청서 목록
     @ResponseBody
-    @GetMapping("/{memberId}")
+    @GetMapping("/{memberId}/my_list")
     public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
