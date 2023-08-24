@@ -1,6 +1,5 @@
 package ISTP.dtos.board;
 
-import ISTP.domain.board.BoardType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

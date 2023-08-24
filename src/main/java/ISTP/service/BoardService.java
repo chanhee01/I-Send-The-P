@@ -1,7 +1,6 @@
 package ISTP.service;
 
 import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
 import ISTP.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

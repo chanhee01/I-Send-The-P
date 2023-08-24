@@ -7,7 +7,6 @@ import ISTP.domain.bloodDonation.accept.AcceptStatusName;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.faq.Faq;
 import ISTP.domain.help.question.Question;

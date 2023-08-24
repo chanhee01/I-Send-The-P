@@ -2,7 +2,6 @@ package ISTP.dtos.board;
 
 
 import ISTP.domain.board.Board;
-import ISTP.domain.board.BoardType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
