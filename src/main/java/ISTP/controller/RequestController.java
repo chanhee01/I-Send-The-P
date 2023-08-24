@@ -24,7 +24,7 @@ import static ISTP.domain.bloodDonation.BloodTypeName.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/request")
+@RequestMapping("/api/request")
 public class RequestController {
 
     private final RequestService requestService;
@@ -80,7 +80,7 @@ public class RequestController {
         return savedId;
     }
 
-    @PutMapping("/status/{requestId}") // 신청중 -> 진행중 버튼
+    /*@PutMapping("/status/{requestId}") // 신청중 -> 진행중 버튼
     public void request_status(@PathVariable Long requestId) {
         Request request = requestService.findById(requestId);
         requestService.changeStatus(request);
@@ -96,7 +96,7 @@ public class RequestController {
     public void update_request(@PathVariable Long requestId) {
         Request request = requestService.findById(requestId);
         requestService.changeStatus3(request);
-    }
+    }*/
 
     @DeleteMapping("/delete/{requestId}") // 글 삭제
     public void delete_request(@PathVariable Long requestId) {

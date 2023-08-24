@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/accept")
+@RequestMapping("/api/accept")
 public class AcceptController {
 
     private final AcceptService acceptService;
@@ -28,21 +28,24 @@ public class AcceptController {
         Member member = memberService.findById(1L);
         Accept accept = new Accept(member, request, AcceptStatus.수락);
         Long savedId = acceptService.save(accept);
+        requestService.changeStatus(request);
         return savedId;
     }
 
     @PostMapping("/{requestId}/change_finish/{acceptId}") // 헌혈 후 완료버튼 누르기
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
-        accept.update_finish();
+        acceptService.update_finish(accept);
+        Request request = requestService.findById(requestId);
+        requestService.changeStatus2(request);
         memberService.countPlus(accept.getMember());
     }
 
     @PostMapping("/{requestId}/change_cancel/{acceptId}") // 수락했는데 취소하는것
     public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
-        accept.update_cancel();
+        acceptService.update_cancel(accept);
         Request request = requestService.findById(requestId);
-        request.update_request();
+        requestService.changeStatus3(request);
     }
 }
