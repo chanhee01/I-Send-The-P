@@ -63,6 +63,7 @@ public class InitData {
             em.persist(bloodTypeCategories7);
             em.persist(bloodTypeCategories8);
 
+<<<<<<< HEAD
             AcceptStatusCategories acceptStatusCategories1 = new AcceptStatusCategories(AcceptStatusName.ACCEPT);
             AcceptStatusCategories acceptStatusCategories2 = new AcceptStatusCategories(AcceptStatusName.CANCEL);
             AcceptStatusCategories acceptStatusCategories3 = new AcceptStatusCategories(AcceptStatusName.COMPLETED);
@@ -73,6 +74,9 @@ public class InitData {
 
 
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천", true);
+=======
+            Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "부산 수영구", true);
+>>>>>>> 2a1bfdd213263035868ef9554d65a33c47c9a59a
             Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories2, "bbb@naver.com", "서울시", true);
             Member member3 = new Member("loginId3", "password3", "test3", "별명3", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천시", true);
             Member member4 = new Member("loginId4", "password4", "test4", "별명4", 20, false, "010-3333-4444", bloodTypeCategories2, "bbb@naver.com", "인천시", true);
