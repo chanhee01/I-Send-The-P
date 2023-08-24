@@ -43,16 +43,16 @@ public class RequestController {
         return requestDtoList;
     }
 
-    @GetMapping("/{requestId}") // 게시글 리스트에서 하나 클릭해서 들어가기
+    /*@GetMapping("/{requestId}") // 게시글 리스트에서 하나 클릭해서 들어가기
     public RequestDto requestOne(@PathVariable Long requestId) {
         Request request = requestService.findByOneId(requestId);
         Member member = request.getMember();
         RequestDto requestDto = new RequestDto(request, member);
 
         return requestDto;
-    }
+    }*/
 
-    @PostMapping("/blood")// 게시글 올리기
+    /*@PostMapping("/blood")// 게시글 올리기
     public Long bloodRequest(@Validated @RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
         BloodTypeCategories bloodType_A_PLUS = memberService.findByBloodType(A_PLUS);
@@ -64,7 +64,7 @@ public class RequestController {
 
         Long savedId = requestService.save(savedRequest);
 
-        /*if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
+        *//*if(savedRequest.getAddress().equals("전체")) { // 전체 선택하면 전체의 사람들한테 보내짐
             List<Member> allByMemberBloodType = requestService.findAllByMemberBloodType(savedRequest.getBloodType());
             for (Member m : allByMemberBloodType) {
                 System.out.println("전체 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
@@ -75,13 +75,13 @@ public class RequestController {
             for (Member m : regionByMemberBloodType) {
                 System.out.println("지역만 = " + m.getLoginId()); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
             }
-        }*/
+        }*//*
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
         //=========규혁 추가==========
         alarmService.createAlarmForMember(member, savedRequest);
         return savedId;
-    }
+    }*/
 
     @DeleteMapping("/delete/{requestId}") // 글 삭제
     public void delete_request(@PathVariable Long requestId) {
