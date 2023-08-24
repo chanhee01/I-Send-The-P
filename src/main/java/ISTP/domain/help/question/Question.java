@@ -10,7 +10,6 @@ import lombok.ToString;
 
 @Entity
 @Getter
-@ToString(of = {"id", "title", "content", "questionType", "status"})
 @NoArgsConstructor
 public class Question extends BaseEntity { // 문의사항
 

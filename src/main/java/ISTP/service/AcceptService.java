@@ -76,4 +76,8 @@ public class AcceptService {
     public List<Accept> findByMember(Member member) {
         return acceptRepository.findByMemberOrderByCreateDateDesc(member);
     }
+
+    public Long count(Member member) {
+        return acceptRepository.count(member.getId(), 3L);
+    }
 }

@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "content", "isRead", "requestId"})
 public class Alarm extends BaseEntity {
 
     @Id

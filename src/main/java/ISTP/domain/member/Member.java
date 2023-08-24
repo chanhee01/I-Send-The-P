@@ -19,7 +19,6 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Entity
 @Getter
-@ToString(of = {"loginId", "password", "name", "myBloodType", "count"})
 public class Member extends BaseEntity { // 사용자
 
     @Id

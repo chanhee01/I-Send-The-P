@@ -99,6 +99,13 @@ public class MemberController {
         return myPageDto;
     }
 
+    @GetMapping("/myPages/count/{memberId}")
+    public Long count(@PathVariable Long memberId) {
+        Member findMember = memberService.findById(memberId);
+        memberService.findById(findMember.getId());
+        return acceptService.count(findMember);
+    }
+
     //닉네임 수정
     /**
      * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
