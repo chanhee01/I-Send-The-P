@@ -1,9 +1,11 @@
 package ISTP.service;
 
+import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.member.Member;
+import ISTP.repository.BloodDonationCategoriesRepository;
 import ISTP.repository.BloodTypeCategoriesRepository;
 import ISTP.repository.RequestRepository;
 import ISTP.repository.RequestStatusCategoriesRepository;
@@ -25,7 +27,7 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
     private final RequestStatusCategoriesRepository requestStatusCategoriesRepository;
-
+    private final BloodDonationCategoriesRepository bloodDonationCategoriesRepository;
     @Transactional
     public Long save(Request request) {
         Request saveRequest = requestRepository.save(request);
@@ -112,6 +114,17 @@ public class RequestService {
     public List<Member> findAllByMemberBloodType(String bloodType) {
         BloodTypeCategories byBloodType = bloodTypeCategoriesRepository.findByBloodType(bloodType);
         return requestRepository.findAllByMemberBloodType(byBloodType.getId());
+    }
+
+    public List<BloodDonationCategories> findBloodDonation() {
+        return bloodDonationCategoriesRepository.findAll();
+    }
+
+    public List<BloodTypeCategories> findBloodType() {
+        return bloodTypeCategoriesRepository.findAll();
+    }
+    public List<RequestStatusCategories> findRequestStatusAll() {
+        return requestStatusCategoriesRepository.findAll();
     }
 
 }
