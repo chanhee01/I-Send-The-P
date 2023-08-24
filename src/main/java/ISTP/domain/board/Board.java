@@ -21,18 +21,17 @@ public class Board extends BaseEntity {
 
     private String title;
     private String content;
-    @Enumerated(EnumType.STRING)
-    private BoardType boardType;
+    private boolean isNotice; //true 면 공지사항 false 면 그 외 인터뷰 등등
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Board(String title, String content, BoardType boardType, Member member) {
+    public Board(String title, String content, boolean isNotice, Member member) {
         this.title = title;
         this.content = content;
-        this.boardType = boardType;
+        this.isNotice = isNotice;
         if(member != null) {
             changeBoard(member);
         }
@@ -45,10 +44,10 @@ public class Board extends BaseEntity {
     }
 
     //게시글 수정하여 업데이트 하는 메서드
-    public void updateBoard(String title, String content, BoardType boardType) {
+    public void updateBoard(String title, String content, Boolean isNotice) {
         this.title = title;
         this.content = content;
-        this.boardType = boardType;
+        this.isNotice = isNotice;
     }
 
 }

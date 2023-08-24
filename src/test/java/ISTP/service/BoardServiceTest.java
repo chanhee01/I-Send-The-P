@@ -35,17 +35,17 @@ class BoardServiceTest {
         for(int i = 1; i <= 12; i++) {
             Board board;
             if(i <= 3) {
-                board = new Board("title" + i, "content1" + i, BoardType.공지사항, member1);
+                board = new Board("title" + i, "content1" + i, true, member1);
             }
             else if(i <= 6) {
-                board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member1);
+                board = new Board("title" + i, "content1" + i, false, member1);
             }
             else if(i <= 9) {
 
-                board = new Board("title" + i, "content1" + i, BoardType.공지사항, member2);
+                board = new Board("title" + i, "content1" + i, true, member2);
             }
             else {
-                 board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member2);
+                 board = new Board("title" + i, "content1" + i, false, member2);
             }
             boardService.save(board);
         }
@@ -53,7 +53,7 @@ class BoardServiceTest {
 
     @Test
     public void findById() {
-        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        Board board = new Board("abc", "abc", true, null);
         boardService.save(board);
         Board findBoard = boardService.findById(board.getId());
         assertThat(findBoard).isEqualTo(board);
@@ -80,15 +80,15 @@ class BoardServiceTest {
 
     @Test
     public void updateBoard() {
-        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        Board board = new Board("abc", "abc", true, null);
         boardService.save(board);
-        boardService.updateBoard(board, "updateTitle", "updateContent", BoardType.인터뷰);
+        boardService.updateBoard(board, "updateTitle", "updateContent", false);
         assertThat(board.getTitle()).isEqualTo("updateTitle");
     }
 
     @Test
     public void deleteBoard() {
-        Board board = new Board("abc", "abc", BoardType.공지사항, null);
+        Board board = new Board("abc", "abc", true, null);
         boardService.save(board);
         boardService.deleteBoard(board);
         assertThrows(IllegalArgumentException.class, () -> boardService.findById(board.getId()));

@@ -56,10 +56,15 @@ public class QuestionService {
         return questionRepository.findAllByMemberIdOrderByCreateDateDesc(memberId);
     }
 
+    public List<Question> findAllByQuestionTypeId(Long memberId, Long questionTypeId) {
+        log.info("나중에 작성된 시간 순으로 멤버가 작성한 QuestionTypeId가 일치하는 Question 모두 조회");
+        return questionRepository.findAllByMemberIdAndQuestionTypeIdOrderByCreateDateDesc(memberId, questionTypeId);
+    }
     public List<Faq> findAllByFaqTypeId(Long QuestionTypeId) {
         log.info("QuestionTypeId가 일치하는 Faq 모두 조회");
         return faqRepository.findAllByQuestionTypeId(QuestionTypeId);
     }
+
 
     @Transactional
     public void updateQuestion(Question question, String updateTitle, String updateContent, QuestionTypeCategories updateQuestionTypeCategories) {

@@ -50,8 +50,8 @@ public class HelpController {
     //1:1 문의내역 리스트
     @ResponseBody
     @GetMapping("/{memberId}/list")
-    public List<QuestionSummaryDto> questionList(@PathVariable Long memberId) {
-        List<Question> questions = questionService.findAll(memberId);
+    public List<QuestionSummaryDto> questionList(@PathVariable Long memberId, @RequestParam Long typeId) {
+        List<Question> questions = questionService.findAllByQuestionTypeId(memberId, typeId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {
             QuestionSummaryDto questionSummaryDto = new QuestionSummaryDto(question);
