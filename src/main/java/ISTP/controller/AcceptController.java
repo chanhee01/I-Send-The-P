@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/accept")
+@RequestMapping("/api/accept")
 public class AcceptController {
 
     private final AcceptService acceptService;
@@ -28,6 +28,7 @@ public class AcceptController {
         Member member = memberService.findById(1L);
         Accept accept = new Accept(member, request, AcceptStatus.수락);
         Long savedId = acceptService.save(accept);
+        requestService.changeStatus(request);
         return savedId;
     }
 
@@ -35,6 +36,8 @@ public class AcceptController {
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
         accept.update_finish();
+        Request request = requestService.findById(requestId);
+        requestService.changeStatus2(request);
         memberService.countPlus(accept.getMember());
     }
 
@@ -43,6 +46,6 @@ public class AcceptController {
         Accept accept = acceptService.findById(acceptId);
         accept.update_cancel();
         Request request = requestService.findById(requestId);
-        request.update_request();
+        requestService.changeStatus3(request);
     }
 }

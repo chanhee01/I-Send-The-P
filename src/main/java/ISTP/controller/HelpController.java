@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/help")
+@RequestMapping("/api/help")
 @Slf4j
 public class HelpController {
 

@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/alarms")
+@RequestMapping("/api/alarms")
 @Slf4j
 public class AlarmController {
 
