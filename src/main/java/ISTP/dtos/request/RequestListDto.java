@@ -10,16 +10,16 @@ import java.time.LocalDateTime;
 public class RequestListDto {
     private Long bloodTypeId;
     private String title;
-    private Long requestStatusId;
     private String content;
+    private Long requestStatusId;
     private LocalDateTime createdTime;
     private Long id;
 
     public RequestListDto(Request request) {
         this.bloodTypeId = request.getBloodTypeId();
         this.title = request.getTitle();
-        this.requestStatusId = request.getRequestStatusId();
         this.content = request.getContent();
+        this.requestStatusId = request.getRequestStatusId();
         this.createdTime = request.getCreateDate();
         this.id = request.getId();
     }

@@ -1,13 +1,11 @@
 package ISTP.dtos.bloodCenter;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(of = {"phoneNumber", "address", "DonationCenter"})
 public class BloodCenterDTO {
     private String phoneNumber;
     private String address;

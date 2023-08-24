@@ -2,7 +2,8 @@ package ISTP.controller;
 
 import ISTP.domain.banner.Banner;
 import ISTP.domain.member.Member;
-import ISTP.dtos.member.BannerDto;
+import ISTP.dtos.banner.BanDto;
+import ISTP.dtos.banner.BannerDto;
 import ISTP.dtos.member.MemberRankingDto;
 import ISTP.service.BannerService;
 import ISTP.service.MemberService;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/homes")
+@RequestMapping("/api")
 public class HomeController {
 
     private final MemberService memberService;
@@ -35,10 +36,10 @@ public class HomeController {
 
     @GetMapping("/banner")
     public List<BannerDto> banner() {
-        List<String> banner = bannerService.banner();
+        List<BanDto> banner = bannerService.banner();
         List<BannerDto> bannerDtos = new ArrayList<>();
-        for(String url : banner) {
-            BannerDto bannerDto = new BannerDto(url);
+        for(BanDto banDto : banner) {
+            BannerDto bannerDto = new BannerDto(banDto.getUrl(), banDto.getTo_Url());
             bannerDtos.add(bannerDto);
         }
         return bannerDtos;

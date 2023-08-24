@@ -1,14 +1,14 @@
 package ISTP.controller;
 
-import ISTP.dtos.request.RequestRe;
+import ISTP.domain.bloodDonation.accept.Accept;
+import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
+import ISTP.domain.bloodDonation.accept.AcceptStatusName;
+import ISTP.dtos.bloodCenter.BloodCenterDTO;
+import ISTP.dtos.request.*;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
-import ISTP.dtos.request.RequestDto;
-import ISTP.dtos.request.RequestListDto;
 import ISTP.message.MessageService;
-import ISTP.service.AlarmService;
-import ISTP.service.MemberService;
-import ISTP.service.RequestService;
+import ISTP.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -17,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,8 @@ public class RequestController {
     //private final BloodCenterService bloodService;
     private final AlarmService alarmService;
     private final MessageService messageService;
+    private final AcceptService acceptService;
+    private final BloodCenterService bloodCenterService;
 
     @GetMapping("") // 게시글 리스트
     public Page<RequestListDto> requestList(@PageableDefault(size = 10) Pageable pageable) {
@@ -50,7 +53,7 @@ public class RequestController {
     }
 
     @PostMapping("")// 게시글 올리기
-    public Long bloodRequest(@RequestBody RequestRe request) {
+    public Long bloodRequest(@RequestBody RequestRe request) throws Exception {
         Member member = memberService.findById(1L);
 
         Request savedRequest = new Request(request.getTitle(), request.getRegisterNumber(), request.getHospitalName(),
@@ -64,7 +67,15 @@ public class RequestController {
 
         List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getBloodDonationTypeId());
         for (Member m : allByMemberBloodType) {
-            // messageService.sendOne(m.getPhoneNumber(), "헌혈이 필요합니다."); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
+            List<BloodCenterDTO> hospital = bloodCenterService.API(m.getAddress());
+            for (BloodCenterDTO bloodCenterDTO : hospital) {
+                String phoneNumber = bloodCenterDTO.getPhoneNumber();
+                String donationCenter = bloodCenterDTO.getDonationCenter();
+                String phoneNumber1 = bloodCenterDTO.getPhoneNumber();
+            }
+            messageService.sendOne(m.getPhoneNumber(), " 사용자와 같은 혈액형을 가진 환자로부터 헌혈 요청이 도착했습니다. \n" +
+                    " 헌혈이 가능한 상태라면, 환자에게 희망을 선물해주세요!.\n" +
+                    "전화번"); // 나중에 문자로 교체, 지금은 돈들어가니 안해놓음
         }
 
         //병원명으로 주소 어딘지 알수있게 Hospital 수정해야할듯?
@@ -81,6 +92,63 @@ public class RequestController {
         requestService.delete(requestId);
     }
 
+    @PostMapping("/{requestId}/accept") // 글에서 수락버튼 누르는 것
+    public Long accept(@PathVariable Long requestId) {
+        Request request = requestService.findById(requestId);
+        Member member = memberService.findById(1L);
+        AcceptStatusCategories byAcceptStatus = acceptService.findByAcceptStatus(AcceptStatusName.ACCEPT);
+        Accept accept = new Accept(member, request, byAcceptStatus);
+        Long savedId = acceptService.save(accept);
+        requestService.changeStatus(request);
+        return savedId;
+    }
+
+    @PutMapping("/{requestId}/complete") // 헌혈 후 완료버튼 누르기
+    public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
+        Accept accept = acceptService.findById(acceptId);
+        acceptService.update_finish(accept);
+        Request request = requestService.findById(requestId);
+        requestService.changeStatus2(request);
+        memberService.countPlus(accept.getMember());
+    }
+
+    @PutMapping("/{requestId}/cancle") // 수락했는데 취소하는것
+    public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
+        Accept accept = acceptService.findById(acceptId);
+        acceptService.update_cancel(accept);
+        Request request = requestService.findById(requestId);
+        requestService.changeStatus3(request);
+    }
+
+    @GetMapping("{requestId}/hospitals")
+    public List<HospitalDto> hospital() throws Exception {
+        Member member = memberService.findById(1L);
+        String hospital = member.getAddress();
+        List<BloodCenterDTO> api = bloodCenterService.API(hospital);
+        List<HospitalDto> hospitalDtos = new ArrayList<>();
+
+        for (BloodCenterDTO bloodCenterDTO : api) {
+            String address = bloodCenterDTO.getAddress();
+            String donationCenter = bloodCenterDTO.getDonationCenter();
+            HospitalDto hospitalDto = new HospitalDto(address, donationCenter);
+            hospitalDtos.add(hospitalDto);
+        }
+        return hospitalDtos;
+    }
+
+    //내가 등록한 긴급헌혈 요청서 목록
+    @ResponseBody
+    @GetMapping("/{memberId}")
+    public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
+        Member member = memberService.findById(memberId);
+        List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
+        List<MyRequestDto> requestDtos = new ArrayList<>();
+        for (Request request : allByMemberNickname) {
+            MyRequestDto requestDto = new MyRequestDto(request);
+            requestDtos.add(requestDto);
+        }
+        return requestDtos;
+    }
 }
 
 

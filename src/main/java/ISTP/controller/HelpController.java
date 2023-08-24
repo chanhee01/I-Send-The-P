@@ -33,8 +33,9 @@ public class HelpController {
     /**
      * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯
      */
-    @PostMapping("/{memberId}/create")
-    public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult, @PathVariable Long memberId) {
+    @PostMapping("")
+    public Long save(@Validated @RequestParam Long memberId,
+                     @RequestBody QuestionSaveForm form, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
@@ -49,8 +50,8 @@ public class HelpController {
 
     //1:1 문의내역 리스트
     @ResponseBody
-    @GetMapping("/{memberId}/list")
-    public List<QuestionSummaryDto> questionList(@PathVariable Long memberId, @RequestParam Long typeId) {
+    @GetMapping("")
+    public List<QuestionSummaryDto> questionList(@RequestParam Long typeId, Long memberId) {
         List<Question> questions = questionService.findAllByQuestionTypeId(memberId, typeId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {
@@ -61,7 +62,7 @@ public class HelpController {
     }
 
     //문의 완료가 되지 않은 상태에서 1:1 문의글 수정하기
-    @PutMapping("/{memberId}/edit/{questionId}")
+    @PatchMapping("/{questionId}")
     public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -76,7 +77,7 @@ public class HelpController {
 
     //상세 문의내역
     @ResponseBody
-    @GetMapping("/{questionId}/detail")
+    @GetMapping("/{questionId}")
     public HelpDto help(@PathVariable Long questionId) {
         Question question = questionService.findById(questionId);
         Answer answer = answerService.findByQuestionId(questionId);
@@ -85,7 +86,7 @@ public class HelpController {
     }
 
     //1:1문의내역 답변 달기
-    @PostMapping("/{memberId}/{questionId}/answer")
+    @PostMapping("/{questionId}/answer")
     public Long answerSave(@Validated @RequestBody AnswerSaveForm form, BindingResult bindingResult, @PathVariable Long memberId, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
@@ -99,8 +100,8 @@ public class HelpController {
     }
 
     //faq 답변 보여주기
-    @GetMapping("/{memberId}/faq")
-    public List<FaqDto> faqList(@PathVariable Long memberId, @RequestParam Long typeId) {
+    @GetMapping("/faq")
+    public List<FaqDto> faqList(@RequestParam Long typeId) {
         List<Faq> allByFaqTypeId = questionService.findAllByFaqTypeId(typeId);
         List<FaqDto> faqDtos = new ArrayList<>();
         for (Faq faq : allByFaqTypeId) {

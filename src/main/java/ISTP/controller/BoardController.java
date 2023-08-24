@@ -28,7 +28,7 @@ public class BoardController {
 
     //공지사항 리스트 조회
     @ResponseBody
-    @GetMapping("/list")
+    @GetMapping("")
     public List<BoardSummaryDto> boardList() {
         //공지사항이 제일 위에 나타나도록 조회
         List<Board> boards = boardService.findByBoardType();
@@ -43,7 +43,7 @@ public class BoardController {
     /**
      * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯~~ 우선은 그냥 파라미터로 멤버아이디 하나 임의로 받겠습니다
      */
-    @PostMapping("create")
+    @PostMapping("")
     public Long save(@Validated @RequestBody BoardSaveForm form, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
@@ -67,7 +67,7 @@ public class BoardController {
     }
 
     //게시글 수정
-    @PutMapping("{boardId}/edit")
+    @PutMapping("{boardId}")
     public Long editBoard(@Validated @RequestBody BoardEditForm form, BindingResult bindingResult, @PathVariable Long boardId) {
 
         if(bindingResult.hasErrors()) {

@@ -83,10 +83,10 @@ public class InitData {
             em.persist(acceptStatusCategories2);
             em.persist(acceptStatusCategories3);
 
-            Banner banner1 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_03.png");
-            Banner banner2 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_01.jpg");
-            Banner banner3 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_02.png");
-            Banner banner4 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_04.png");
+            Banner banner1 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_03.png", "notice/3");
+            Banner banner2 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_01.jpg", "notice/1");
+            Banner banner3 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_02.png", "notice/2");
+            Banner banner4 = new Banner("https://istp.s3.ap-northeast-2.amazonaws.com/KakaoTalk_20230824_224713138_04.png", "/rank");
 
             em.persist(banner1);
             em.persist(banner2);
@@ -125,8 +125,8 @@ public class InitData {
             Member member6 = new Member("loginId6", "password6", "test6", "별명6", 20, false, "010-3333-4444", bloodTypeCategories5, "bbb@naver.com", "인천시", true);
             Member member7 = new Member("loginId7", "password7", "test7", "별명7", 10, true, "010-1111-2222", bloodTypeCategories5, "aaa@naver.com", "인천시", true);
             Member member8 = new Member("loginId8", "password8", "test8", "별명8", 20, false, "010-3333-4444", bloodTypeCategories5, "bbb@naver.com", "인천시", true);
-            Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, true, "01041539032", bloodTypeCategories1, "aaa@naver.com", "인천시", true);
-            Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, false, "01076645199", bloodTypeCategories1, "bbb@naver.com", "인천시", true);
+            Member member9 = new Member("loginId9", "password9", "test9", "별명9", 10, true, "01041539032", bloodTypeCategories1, "aaa@naver.com", "인천 부평구", true);
+            Member member10 = new Member("loginId10", "password10", "test10", "별명10", 20, false, "01076645199", bloodTypeCategories3, "bbb@naver.com", "인천시", true);
             for(int i = 0; i  < 14; i++) {
                 member1.countPlus();
             }

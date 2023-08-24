@@ -34,7 +34,7 @@ public class MemberController {
     private final AcceptService acceptService;
 
     //회원가입 로직
-    @PostMapping("/save")
+    @PostMapping("")
     public Long save(@Validated @RequestBody MemberSaveForm form, BindingResult bindingResult) {
 
         if (!(memberService.passwordReEnter(form.getPassword(), form.getRePassword()))) {
@@ -58,7 +58,7 @@ public class MemberController {
     }
 
     //회원가입 시 로그인 아이디 중복 확인 로직
-    @PostMapping("/save/duplicate/loginId")
+    @PostMapping("/duplicate/")
     @ResponseBody
     public String checkDuplicateLoginId(@RequestParam String loginId) {
          if(memberService.duplicatedLoginId(loginId)) {
@@ -70,7 +70,7 @@ public class MemberController {
     }
 
     //회원가입 시 닉네임 중복 확인 로직
-    @PostMapping("/save/duplicate/nickname")
+    @PostMapping("duplicate/nickname")
     @ResponseBody
     public String checkDuplicateNickname(@RequestParam String nickname) {
         if(memberService.duplicatedNickname(nickname)) {
@@ -82,7 +82,7 @@ public class MemberController {
     }
 
     //회원가입 시 닉네임 중복 확인 로직
-    @PostMapping("/save/check_duplicate/phoneNumber")
+    @PostMapping("/duplicate/phoneNumber")
     @ResponseBody
     public String checkDuplicatePhoneNumber(@RequestParam String phoneNumber) {
         if(memberService.duplicatedPhoneNumber(phoneNumber)) {
@@ -95,19 +95,14 @@ public class MemberController {
 
     //마이페이지에 뿌려줄 DTO
     @ResponseBody
-    @GetMapping("/myPages/{memberId}")
+    @GetMapping("/{memberId}")
     public MemberMyPageDto myPage(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         MemberMyPageDto myPageDto = new MemberMyPageDto(member);
         return myPageDto;
     }
 
-    @GetMapping("/myPages/count/{memberId}")
-    public Long count(@PathVariable Long memberId) {
-        Member findMember = memberService.findById(memberId);
-        memberService.findById(findMember.getId());
-        return acceptService.count(findMember);
-    }
+
 
     @GetMapping("/myPages/{memberId}/edit")
     public MemberEditMyPageDto myEditPage(@PathVariable Long memberId)  {
@@ -118,7 +113,7 @@ public class MemberController {
     //as
 
 
-    @PutMapping("/change/{memberId}")
+    @PutMapping("/{memberId}")
     public ResponseEntity<?> change(@PathVariable Long memberId, @RequestBody MemberChangeDto memberChangeDto) {
         Member member = memberService.findById(memberId);
         ResponseEntity<?> responseEntity = memberService.changeMember(member, memberChangeDto.getPhoneNumber(), memberChangeDto.getUserNickname(),
@@ -144,32 +139,6 @@ public class MemberController {
     }*/
 
 
-    //내가 등록한 긴급헌혈 요청서 목록
-    @ResponseBody
-    @GetMapping("/myPages/{memberId}/myRequests")
-    public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
-        List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
-        List<MyRequestDto> requestDtos = new ArrayList<>();
-        for (Request request : allByMemberNickname) {
-            MyRequestDto requestDto = new MyRequestDto(request);
-            requestDtos.add(requestDto);
-        }
-        return requestDtos;
-    }
 
-    //내가 요청 수락을 한 긴급헌혈 요청서 목록
-    @ResponseBody
-    @GetMapping("/myPages/{memberId}/myAccepts")
-    public List<MyAcceptDto> myAcceptRequestList(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
-        List<Accept> accepts = acceptService.findByMember(member);
-        List<MyAcceptDto> acceptDtos = new ArrayList<>();
-        for (Accept accept : accepts) {
-            Request request = accept.getRequest();
-            MyAcceptDto acceptDto = new MyAcceptDto(request);
-            acceptDtos.add(acceptDto);
-        }
-        return acceptDtos;
-    }
+
 }
