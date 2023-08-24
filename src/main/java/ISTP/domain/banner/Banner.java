@@ -15,4 +15,8 @@ public class Banner {
     private Long id;
 
     private String imgUrl;
+
+    public Banner(String url){
+        this.imgUrl = url;
+    }
 }

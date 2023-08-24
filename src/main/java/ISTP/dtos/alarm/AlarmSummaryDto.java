@@ -15,6 +15,7 @@ public class AlarmSummaryDto {
     private Long requestStatusId;
     private LocalDateTime createdTime;
     private boolean isRead;
+    private Long id;
 
     public AlarmSummaryDto(AcceptAndIsReadDto acceptAndIsReadDto) {
         title = acceptAndIsReadDto.getRequest().getTitle();
@@ -22,5 +23,6 @@ public class AlarmSummaryDto {
         requestStatusId = acceptAndIsReadDto.getRequest().getRequestStatusId();
         createdTime = acceptAndIsReadDto.getRequest().getCreateDate();
         isRead = acceptAndIsReadDto.isRead();
+        id = acceptAndIsReadDto.getRequest().getId();
     }
 }
