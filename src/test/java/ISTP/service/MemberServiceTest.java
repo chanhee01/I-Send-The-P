@@ -1,7 +1,9 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.member.Member;
+import ISTP.repository.BloodTypeCategoriesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static ISTP.domain.bloodDonation.BloodTypeName.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -19,23 +22,35 @@ class MemberServiceTest {
 
     @Autowired
     MemberService memberService;
-
+    @Autowired
+    BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
     @BeforeEach
     public void before() {
-
+        BloodTypeCategories bloodTypeCategories1 = new BloodTypeCategories(A_PLUS);
+        BloodTypeCategories bloodTypeCategories2 = new BloodTypeCategories(B_PLUS);
+        BloodTypeCategories bloodTypeCategories3 = new BloodTypeCategories(AB_PLUS);
+        BloodTypeCategories bloodTypeCategories4 = new BloodTypeCategories(O_PLUS);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories1);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories2);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories3);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories4);
         for(int i = 1; i <= 20; i++) {
             Member member = new Member("id" + i, "pass" + i, "nick" + i, "address" + i);
             if(i <= 5) {
-                member.setMyBloodType(BloodType.A_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(A_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else if(i <= 10) {
-                member.setMyBloodType(BloodType.B_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(B_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else if(i <= 15) {
-                member.setMyBloodType(BloodType.O_PLUS);
+                BloodTypeCategories byBloodType = memberService.findByBloodType(O_PLUS);
+                member.setMyBloodType(byBloodType);
             }
             else {
-                member.setMyBloodType(BloodType.AB_PLUS);;
+                BloodTypeCategories byBloodType = memberService.findByBloodType(AB_PLUS);
+                member.setMyBloodType(byBloodType);;
             }
             memberService.save(member);
         }
@@ -130,6 +145,23 @@ class MemberServiceTest {
     }
 
     @Test
+    public void duplicatedPhoneNumber() {
+        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
+        memberService.save(member1);
+        String phoneNumber = "01076645198";
+        assertThat(memberService.duplicatedPhoneNumber(phoneNumber)).isTrue();
+    }
+
+    @Test
+    public void duplicatedPhoneNumberError() {
+        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
+        memberService.save(member1);
+        String phoneNumber = "01076645199";
+        assertThrows(IllegalArgumentException.class, () -> memberService.duplicatedPhoneNumber(phoneNumber));
+    }
+
+
+    @Test
     public void passwordReEnter() {
         String password = "aaa";
         String rePassword = "aaa";
@@ -216,10 +248,10 @@ class MemberServiceTest {
 
     @Test
     public void findAllByMyBloodType() {
-        List<Member> allByMyBloodType = memberService.findAlarmMember(BloodType.A_PLUS, false, "");
+        List<Member> allByMyBloodType = memberService.findAlarmMember(A_PLUS, false, "");
         assertThat(allByMyBloodType.size()).isEqualTo(0);
         for (Member member : allByMyBloodType) {
-            assertThat(member.getMyBloodType()).isEqualTo(BloodType.A_PLUS);
+            assertThat(member.getMyBloodTypeId()).isEqualTo(1L);
         }
     }
 

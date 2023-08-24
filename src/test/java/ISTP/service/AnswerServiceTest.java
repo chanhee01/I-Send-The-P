@@ -1,11 +1,10 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.help.Answer;
 import ISTP.domain.help.question.Question;
-import ISTP.domain.help.question.QuestionType;
-import ISTP.domain.help.question.QuestionTypeName;
-import ISTP.domain.member.Gender;
+import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,27 +30,29 @@ class AnswerServiceTest {
 
     @BeforeEach
     public void before() {
-        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
-        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시", true);
+        BloodTypeCategories bloodTypeCategoriesA = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        BloodTypeCategories bloodTypeCategoriesB = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategoriesA, "aaa@naver.com", "인천시", true);
+        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategoriesB, "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                QuestionType questionType = new QuestionType(ACCOUNT);
-                question = new Question("title" + i, "content" + i, questionType, member1);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ACCOUNT);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 6) {
-                QuestionType questionType = new QuestionType(SUGGESTION);
-                question = new Question("title" + i, "content" + i, questionType, member2);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(SUGGESTION);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             else if(i <= 9) {
-                QuestionType questionType = new QuestionType(PROGRAM);
-                question = new Question("title" + i, "content" + i, questionType, member1);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(PROGRAM);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else {
-                QuestionType questionType = new QuestionType(ETC);
-                question = new Question("title" + i, "content" + i, questionType, member2);
+                QuestionTypeCategories questionTypeCategories = new QuestionTypeCategories(ETC);
+                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             questionService.save(question);
         }

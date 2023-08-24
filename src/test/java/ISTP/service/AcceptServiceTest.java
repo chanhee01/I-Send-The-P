@@ -1,12 +1,12 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.accept.AcceptStatus;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,9 +32,9 @@ public class AcceptServiceTest {
         Member member = new Member("abc", "aaa");
 
         memberService.save(member);
-
+        BloodTypeCategories bloodTypeCategories = new BloodTypeCategories(BloodTypeName.A_PLUS);
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
-                "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
+                "1111-2222", "병원", RequestStatus.신청, bloodTypeCategories,
                 "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);
@@ -52,9 +52,9 @@ public class AcceptServiceTest {
         Member member = new Member("abc", "aaa");
 
         memberService.save(member);
-
+        BloodTypeCategories bloodTypeCategories = new BloodTypeCategories(BloodTypeName.A_PLUS);
         Request request = new Request(member, "질병", "제목","내용", LocalDateTime.now().plusDays(3),
-                "1111-2222", "병원", RequestStatus.신청, BloodType.A_PLUS,
+                "1111-2222", "병원", RequestStatus.신청, bloodTypeCategories,
                 "가족", "혈소판 헌혈", "인천");
 
         requestService.save(request);

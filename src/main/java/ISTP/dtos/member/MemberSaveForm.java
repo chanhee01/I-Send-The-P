@@ -1,7 +1,5 @@
 package ISTP.dtos.member;
 
-import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.member.Gender;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -43,7 +41,7 @@ public class MemberSaveForm {
     private String address;
 
     @NotNull
-    private BloodType bloodType;
+    private String bloodType;
 
     @NotBlank
     private String nickname;

@@ -1,12 +1,9 @@
 package ISTP.dtos.request;
 
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +14,7 @@ public class RequestDto {
     private String sickness;
     private String number;
     private String hospital;
-    private BloodType bloodType;
+    private Long bloodTypeId;
     private LocalDateTime duration;
     private String relationship;
     private String content;
@@ -32,7 +29,7 @@ public class RequestDto {
         this.sickness = request.getSickness();
         this.number = request.getNumber();
         this.hospital = request.getHospital();
-        this.bloodType = request.getBloodType();
+        this.bloodTypeId = request.getBloodTypeId();
         this.duration = request.getDuration();
         this.relationship = request.getRelationship();
         this.content = request.getContent();

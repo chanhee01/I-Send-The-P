@@ -1,6 +1,5 @@
 package ISTP.dtos.help;
 
-import ISTP.domain.help.question.QuestionType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

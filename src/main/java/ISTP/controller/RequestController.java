@@ -1,7 +1,8 @@
 package ISTP.controller;
 
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.dtos.request.RequestRe;
-import ISTP.domain.bloodDonation.BloodType;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
@@ -18,6 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+
+import static ISTP.domain.bloodDonation.BloodTypeName.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,9 +53,10 @@ public class RequestController {
     @PostMapping("/blood")// 게시글 올리기
     public Long bloodRequest(@Validated @RequestBody RequestRe request) {
         Member member = memberService.findById(1L);
+        BloodTypeCategories bloodType_A_PLUS = memberService.findByBloodType(A_PLUS);
         Request savedRequest = new Request(member, request.getSickness(), request.getTitle(), request.getContent(),
                 LocalDateTime.now().plusDays(3), request.getNumber(), request.getHospital(), RequestStatus.신청,
-                BloodType.A_PLUS, request.getRelationship(), request.getRequests_blood_type(), request.getAddress());
+                bloodType_A_PLUS, request.getRelationship(), request.getRequests_blood_type(), request.getAddress());
         // 혈액형 고정, 기간 몰라서 3일로 고정함
 
         Long savedId = requestService.save(savedRequest);

@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"questionType"})
-public class QuestionType {
+public class QuestionTypeCategories {
 
     @Id
     @GeneratedValue
@@ -20,7 +20,7 @@ public class QuestionType {
     private String questionType;
 
 
-    public QuestionType(String questionType) {
+    public QuestionTypeCategories(String questionType) {
         this.questionType = questionType;
     }
 

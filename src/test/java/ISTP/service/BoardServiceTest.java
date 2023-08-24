@@ -1,9 +1,9 @@
 package ISTP.service;
 
-import ISTP.domain.bloodDonation.BloodType;
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.board.Board;
 import ISTP.domain.board.BoardType;
-import ISTP.domain.member.Gender;
 import ISTP.domain.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,9 +26,10 @@ class BoardServiceTest {
     MemberService memberService;
     @BeforeEach
     public void before() {
-
-        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
-        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시", true);
+        BloodTypeCategories bloodTypeCategories1 = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        BloodTypeCategories bloodTypeCategories2 = new BloodTypeCategories(BloodTypeName.B_PLUS);
+        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천시", true);
+        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories2, "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
         for(int i = 1; i <= 12; i++) {

@@ -1,19 +1,12 @@
 package ISTP.domain.help.question;
 
 import ISTP.domain.BaseEntity;
-import ISTP.domain.help.Answer;
 import ISTP.domain.member.Member;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import static jakarta.persistence.EnumType.*;
 
 @Entity
 @Getter
@@ -40,11 +33,11 @@ public class Question extends BaseEntity { // 문의사항
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Question(String title, String content, QuestionType questionType, Member member) {
+    public Question(String title, String content, QuestionTypeCategories questionTypeCategories, Member member) {
         this.title = title;
         this.content = content;
         this.answerStatus = false;
-        this.questionTypeId = questionType.getId();
+        this.questionTypeId = questionTypeCategories.getId();
         if(member != null) {
             changeQuestion(member);
         }
@@ -63,9 +56,9 @@ public class Question extends BaseEntity { // 문의사항
 
 
     //문의글 수정하여 업데이트하는 메서드
-    public void updateQuestion(String title, String content, QuestionType questionType) {
+    public void updateQuestion(String title, String content, QuestionTypeCategories questionTypeCategories) {
         this.title = title;
         this.content = content;
-        this.questionTypeId = questionType.getId();
+        this.questionTypeId = questionTypeCategories.getId();
     }
 }
