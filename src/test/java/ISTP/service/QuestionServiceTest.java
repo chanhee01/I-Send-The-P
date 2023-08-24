@@ -1,5 +1,7 @@
 package ISTP.service;
 
+import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
 import ISTP.domain.member.Member;
@@ -24,8 +26,10 @@ class QuestionServiceTest {
 
     @BeforeEach
     public void before() {
-        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, Gender.MAN, "010-1111-2222", BloodType.A_PLUS, "aaa@naver.com", "인천시", true);
-        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, Gender.WOMAN, "010-3333-4444", BloodType.B_PLUS, "bbb@naver.com", "서울시", true);
+        BloodTypeCategories bloodTypeCategoriesA = new BloodTypeCategories(BloodTypeName.A_PLUS);
+        BloodTypeCategories bloodTypeCategoriesB = new BloodTypeCategories(BloodTypeName.B_PLUS);
+        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategoriesA, "aaa@naver.com", "인천시", true);
+        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategoriesB, "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
         QuestionTypeCategories questionTypeCategories1 = new QuestionTypeCategories(ACCOUNT);

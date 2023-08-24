@@ -3,6 +3,7 @@ package ISTP.service;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.member.Member;
+import ISTP.repository.BloodTypeCategoriesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,18 @@ class MemberServiceTest {
 
     @Autowired
     MemberService memberService;
-
     @Autowired
+    BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
     @BeforeEach
     public void before() {
-
+        BloodTypeCategories bloodTypeCategories1 = new BloodTypeCategories(A_PLUS);
+        BloodTypeCategories bloodTypeCategories2 = new BloodTypeCategories(B_PLUS);
+        BloodTypeCategories bloodTypeCategories3 = new BloodTypeCategories(AB_PLUS);
+        BloodTypeCategories bloodTypeCategories4 = new BloodTypeCategories(O_PLUS);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories1);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories2);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories3);
+        bloodTypeCategoriesRepository.save(bloodTypeCategories4);
         for(int i = 1; i <= 20; i++) {
             Member member = new Member("id" + i, "pass" + i, "nick" + i, "address" + i);
             if(i <= 5) {

@@ -90,7 +90,16 @@ public class MemberService {
         log.info("{}는 사용 가능한 닉네임입니다.", nickname);
         return true;
     }
-
+    //휴대폰 중복확인 기능
+    public boolean duplicatedPhoneNumber(String phoneNumber) {
+        Member findMember = memberRepository.findByPhoneNumber(phoneNumber);
+        //이 멤버가 존재하면 이미 전화번호 있는 것
+        if(findMember != null) {
+            throw new IllegalArgumentException("이미 존재하는 휴대폰 번호입니다");
+        }
+        log.info("{}는 사용 가능한 휴대번호입니다.");
+        return true;
+    }
     //비밀번호 재입력 확인 기능
     public boolean passwordReEnter(String password, String rePassword) {
         if(!(password.equals(rePassword))) {

@@ -1,12 +1,6 @@
 package ISTP.service;
 
-<<<<<<< HEAD
 import ISTP.domain.bloodDonation.BloodTypeCategories;
-=======
-import ISTP.domain.bloodDonation.BloodType;
-import ISTP.domain.bloodDonation.accept.Accept;
-import ISTP.domain.bloodDonation.accept.AcceptStatus;
->>>>>>> ca6164d3eeb4f35ce76681d5f7e5daccb7048a1b
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatus;
 import ISTP.domain.member.Member;
