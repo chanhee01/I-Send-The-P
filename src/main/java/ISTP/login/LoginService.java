@@ -1,7 +1,7 @@
 package ISTP.login;
 
-import fashion.look_book.domain.Member;
-import fashion.look_book.repository.MemberRepository;
+import ISTP.domain.member.Member;
+import ISTP.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +15,7 @@ public class LoginService {
 
     @Transactional
     public Member login(String loginId, String password) {
-        return memberRepository.findByLoginId(loginId)
+        return memberRepository.findOptionalByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
