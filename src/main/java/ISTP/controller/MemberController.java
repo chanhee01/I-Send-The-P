@@ -86,7 +86,6 @@ public class MemberController {
     }
 
     //닉네임 수정
-
     /**
      * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
      */
