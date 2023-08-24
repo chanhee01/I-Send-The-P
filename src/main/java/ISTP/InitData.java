@@ -1,11 +1,8 @@
 package ISTP;
 
-<<<<<<< HEAD
 import ISTP.domain.bloodDonation.BloodDonationCategories;
 import ISTP.domain.bloodDonation.BloodDonationName;
-=======
 import ISTP.domain.banner.Banner;
->>>>>>> de1ab1ad306f64fc5e785e66ce16466751f61e94
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
 import ISTP.domain.bloodDonation.accept.AcceptStatusName;

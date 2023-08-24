@@ -80,4 +80,14 @@ public class AcceptService {
     public Long count(Member member) {
         return acceptRepository.count(member.getId(), 3L);
     }
+
+    @Transactional
+    public void changeIsFinished(Accept accept) {
+        accept.changeIsFinished();
+    }
+
+    public List<Accept> findAcceptByAcceptStatusIdAndiIsOngoing(Long acceptStatusId, Boolean ongoing) {
+        List<Accept> all = acceptRepository.findAllByAcceptStatusIdAndIsOngoing(acceptStatusId, ongoing);
+        return all;
+    }
 }
