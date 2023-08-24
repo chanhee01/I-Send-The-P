@@ -32,6 +32,7 @@ public class Member extends BaseEntity { // 사용자
     private String name;
     private String nickname;
     private int age; //생년월일이어야할듯
+    //이거 boolean으로 수정해함
     @Enumerated(STRING)
     private Gender gender;
     private String phoneNumber;
