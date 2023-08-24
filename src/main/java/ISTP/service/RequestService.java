@@ -2,10 +2,11 @@ package ISTP.service;
 
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.request.Request;
-import ISTP.domain.bloodDonation.request.RequestStatus;
+import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.member.Member;
 import ISTP.repository.BloodTypeCategoriesRepository;
 import ISTP.repository.RequestRepository;
+import ISTP.repository.RequestStatusCategoriesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static ISTP.domain.bloodDonation.request.RequestStatusName.*;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
     private final BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
+    private final RequestStatusCategoriesRepository requestStatusCategoriesRepository;
 
     @Transactional
     public Long save(Request request) {
@@ -28,14 +32,24 @@ public class RequestService {
         return saveRequest.getId();
     }
 
+    @Transactional
+    public Long requestTypeSave(BloodTypeCategories bloodTypeCategories) {
+        BloodTypeCategories saveRequestType = bloodTypeCategoriesRepository.save(bloodTypeCategories);
+        return saveRequestType.getId();
+    }
+
     public Request findById(Long requestId) {
         return requestRepository.findById(requestId).
                 orElseThrow(() -> new IllegalArgumentException());
     }
-
+    public RequestStatusCategories findByRequestStatus(String requestStatus) {
+        RequestStatusCategories byRequestStatus = requestStatusCategoriesRepository.findByRequestStatus(requestStatus);
+        return byRequestStatus;
+    }
     public List<Request> findAll() {
         return requestRepository.findAll();
     }
+
 
     public Page<Request> findByDESC(Pageable pageable) {
         return requestRepository.findByDESC(pageable);
@@ -49,7 +63,7 @@ public class RequestService {
     @Transactional
     public void changeStatus2(Request request) { // 진행중에서 완료로 바꾸기
         Request findRequest = findById(request.getId());
-        if(findRequest.getStatus().equals(RequestStatus.신청))
+        if(findRequest.getRequestStatusId().equals(APPLICATION))
         {
             new IllegalArgumentException("수혈 수락부터 눌러야합니다.");
         }
@@ -61,7 +75,7 @@ public class RequestService {
     @Transactional
     public void changeStatus3(Request request) { // 취소누르면 다시 신청으로 바꾸기
         Request findRequest = findById(request.getId());
-        if(findRequest.getStatus().equals(RequestStatus.완료))
+        if(findRequest.getRequestStatusId().equals(COMPLETED))
         {
             new IllegalArgumentException("이미 완료되어서 취소로 변경할 수 없습니다.");
         }
