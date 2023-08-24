@@ -44,14 +44,14 @@ public class BoardController {
      * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯~~ 우선은 그냥 파라미터로 멤버아이디 하나 임의로 받겠습니다
      */
     @PostMapping("create")
-    public Long save(@Validated @RequestBody BoardSaveForm form, BindingResult bindingResult, @RequestParam Long memberId) {
+    public Long save(@Validated @RequestBody BoardSaveForm form, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             //에러처리 어케 할까여
             throw new IllegalArgumentException("게시글 작성 시 오류 발생");
         }
-        Member member = memberService.findById(memberId);
+        Member member = memberService.findById(1L);
         Board board = new Board(form.getTitle(), form.getContent(), form.isNotice(), member);
         boardService.save(board);
         return board.getId();

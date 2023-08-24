@@ -1,8 +1,5 @@
 package ISTP.controller;
 
-import ISTP.domain.bloodDonation.BloodTypeCategories;
-import ISTP.domain.bloodDonation.request.RequestStatusCategories;
-import ISTP.domain.bloodDonation.request.RequestStatusName;
 import ISTP.dtos.request.RequestRe;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
@@ -17,13 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-import static ISTP.domain.bloodDonation.BloodTypeName.*;
-import static ISTP.domain.bloodDonation.request.RequestStatusName.APPLICATION;
-import static ISTP.domain.bloodDonation.request.RequestStatusName.APPLICATION_ID;
 
 @RestController
 @RequiredArgsConstructor
@@ -92,10 +82,6 @@ public class RequestController {
         requestService.delete(requestId);
     }
 
-   /* @GetMapping("api")
-    public List<BloodCenterDTO> api(@RequestParam String region) throws Exception {
-        return bloodService.API(region);
-    }*/
 }
 
 

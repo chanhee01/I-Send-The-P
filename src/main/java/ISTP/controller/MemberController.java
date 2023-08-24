@@ -108,6 +108,7 @@ public class MemberController {
         return acceptService.count(findMember);
     }
 
+
     @PutMapping("/change/{memberId}")
     public ResponseEntity<?> change(@PathVariable Long memberId, @RequestBody MemberChangeDto memberChangeDto) {
         Member member = memberService.findById(memberId);
@@ -133,16 +134,10 @@ public class MemberController {
         memberService.changeAddress(member, address);
     }*/
 
-    //회원 삭제
-    @DeleteMapping("/myPages/{memberId}/delete")
-    public void deleteMember(@PathVariable Long memberId){
-        Member member = memberService.findById(memberId);
-        memberService.withdrawal(member);
-    }
 
     //내가 등록한 긴급헌혈 요청서 목록
     @ResponseBody
-    @GetMapping("/maPages/{memberId}/myRequests")
+    @GetMapping("/myPages/{memberId}/myRequests")
     public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
         Member member = memberService.findById(memberId);
         List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
