@@ -14,14 +14,14 @@ public class BoardDto {
 
     private String title;
     private String content;
-    private BoardType boardType;
+    private boolean isNotice;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
 
     public BoardDto(Board board) {
         title = board.getTitle();
         content = board.getContent();
-        boardType = board.getBoardType();
+        isNotice = board.isNotice();
         createDate = board.getCreateDate();
         lastModifiedDate = board.getLastModifiedDate();
     }

@@ -52,7 +52,7 @@ public class BoardController {
             throw new IllegalArgumentException("게시글 작성 시 오류 발생");
         }
         Member member = memberService.findById(memberId);
-        Board board = new Board(form.getTitle(), form.getContent(), form.getBoardType(), member);
+        Board board = new Board(form.getTitle(), form.getContent(), form.isNotice(), member);
         boardService.save(board);
         return board.getId();
     }
@@ -76,7 +76,7 @@ public class BoardController {
             throw new IllegalArgumentException("게시글 작성 시 오류 발생");
         }
         Board board = boardService.findById(boardId);
-        boardService.updateBoard(board, form.getTitle(), form.getContent(), form.getBoardType());
+        boardService.updateBoard(board, form.getTitle(), form.getContent(), form.isNotice());
         return board.getId();
     }
 

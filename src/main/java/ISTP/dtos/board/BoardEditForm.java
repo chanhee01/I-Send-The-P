@@ -17,5 +17,5 @@ public class BoardEditForm {
     @NotBlank
     private String content;
     @NotNull
-    private BoardType boardType;
+    private boolean  isNotice;
 }

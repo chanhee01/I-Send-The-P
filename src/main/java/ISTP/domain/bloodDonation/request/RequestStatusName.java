@@ -9,8 +9,4 @@ public interface RequestStatusName {
     Long COMPLETED_ID = 3L;
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a545fc5e3b8aeb5f758bee708c35365dc4658cb4
 }

@@ -1,7 +1,6 @@
 package ISTP.dtos.board;
 
 
-import ISTP.domain.board.BoardType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,6 @@ public class BoardSaveForm {
     @NotBlank
     private String content;
     @NotNull
-    private BoardType boardType;
-
+    private boolean isNotice;
 
 }

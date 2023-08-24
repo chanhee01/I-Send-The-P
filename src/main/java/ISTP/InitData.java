@@ -167,17 +167,17 @@ public class InitData {
             for(int i = 1; i <= 12; i++) {
                 Board board;
                 if(i <= 3) {
-                    board = new Board("title" + i, "contentasdasdsadasdasdasd1" + i, BoardType.공지사항, member1);
+                    board = new Board("title" + i, "contentasdasdsadasdasdasd1" + i, true, member1);
                 }
                 else if(i <= 6) {
-                    board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member1);
+                    board = new Board("title" + i, "content1" + i, false, member1);
                 }
                 else if(i <= 9) {
 
-                    board = new Board("title" + i, "content1" + i, BoardType.공지사항, member2);
+                    board = new Board("title" + i, "content1" + i, true, member2);
                 }
                 else {
-                    board = new Board("title" + i, "content1" + i, BoardType.인터뷰, member2);
+                    board = new Board("title" + i, "content1" + i, false, member2);
                 }
                 em.persist(board);
             }
