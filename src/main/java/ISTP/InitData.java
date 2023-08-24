@@ -1,6 +1,8 @@
 package ISTP;
 
 import ISTP.domain.bloodDonation.BloodTypeCategories;
+import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
+import ISTP.domain.bloodDonation.accept.AcceptStatusName;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.bloodDonation.request.RequestStatusName;
@@ -60,6 +62,15 @@ public class InitData {
             em.persist(bloodTypeCategories6);
             em.persist(bloodTypeCategories7);
             em.persist(bloodTypeCategories8);
+
+            AcceptStatusCategories acceptStatusCategories1 = new AcceptStatusCategories(AcceptStatusName.ACCEPT);
+            AcceptStatusCategories acceptStatusCategories2 = new AcceptStatusCategories(AcceptStatusName.CANCEL);
+            AcceptStatusCategories acceptStatusCategories3 = new AcceptStatusCategories(AcceptStatusName.COMPLETED);
+            em.persist(acceptStatusCategories1);
+            em.persist(acceptStatusCategories2);
+            em.persist(acceptStatusCategories3);
+
+
 
             Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategories1, "aaa@naver.com", "인천", true);
             Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategories2, "bbb@naver.com", "서울시", true);

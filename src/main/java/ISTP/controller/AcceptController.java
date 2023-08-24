@@ -1,8 +1,10 @@
 package ISTP.controller;
 
 import ISTP.domain.bloodDonation.accept.Accept;
-import ISTP.domain.bloodDonation.accept.AcceptStatus;
+import ISTP.domain.bloodDonation.accept.AcceptStatusCategories;
+import ISTP.domain.bloodDonation.accept.AcceptStatusName;
 import ISTP.domain.bloodDonation.request.Request;
+import ISTP.domain.bloodDonation.request.RequestStatusCategories;
 import ISTP.domain.member.Member;
 import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.request.HospitalDto;
@@ -30,7 +32,8 @@ public class AcceptController {
     public Long accept(@PathVariable Long requestId) {
         Request request = requestService.findById(requestId);
         Member member = memberService.findById(1L);
-        Accept accept = new Accept(member, request, AcceptStatus.수락);
+        AcceptStatusCategories byAcceptStatus = acceptService.findByAcceptStatus(AcceptStatusName.ACCEPT);
+        Accept accept = new Accept(member, request, byAcceptStatus);
         Long savedId = acceptService.save(accept);
         requestService.changeStatus(request);
         return savedId;

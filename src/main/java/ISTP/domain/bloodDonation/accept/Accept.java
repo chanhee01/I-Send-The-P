@@ -22,9 +22,8 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @JoinColumn(name = "request_id")
     private Request request;
 
-    @Enumerated(STRING)
-    @Column(name = "accept_status")
-    private AcceptStatus status;
+    @Column(name = "accept_status_id")
+    private Long acceptStatusId; //요청 수락 상태, 요청 수락, 요청 취소, 요청 완료
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,22 +33,22 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     public Accept() {
     }
 
-    public Accept(Member member, Request request, AcceptStatus status) {
+    public Accept(Member member, Request request, AcceptStatusCategories acceptStatus) {
         this.member = member;
         this.request = request;
-        this.status = status;
+        this.acceptStatusId = acceptStatus.getId();
     }
 
     public void update_request() {
-        this.status = AcceptStatus.수락;
+        this.acceptStatusId = AcceptStatusName.ACCEPT_ID;
     }
 
     public void update_cancel() {
-        this.status = AcceptStatus.취소;
+        this.acceptStatusId = AcceptStatusName.CANCEL_ID;
     }
 
     public void update_finish() {
-        this.status = AcceptStatus.완료;
+        this.acceptStatusId = AcceptStatusName.COMPLETE_ID;
     }
 
     //==연관관계 메서드==//
