@@ -32,30 +32,30 @@ class QuestionServiceTest {
         Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategoriesB, "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
-        QuestionTypeCategories questionTypeCategories1 = new QuestionTypeCategories(ACCOUNT);
-        questionService.saveV2(questionTypeCategories1);
-        QuestionTypeCategories questionTypeCategories2 = new QuestionTypeCategories(PROGRAM);
-        questionService.saveV2(questionTypeCategories2);
-        QuestionTypeCategories questionTypeCategories3 = new QuestionTypeCategories(SUGGESTION);
-        questionService.saveV2(questionTypeCategories3);
-        QuestionTypeCategories questionTypeCategories4 = new QuestionTypeCategories(ETC);
-        questionService.saveV2(questionTypeCategories4);
+        QuestionTypeCategories questionTypeCategories1 = new QuestionTypeCategories(PARTICIPATION);
+        questionService.questionTypeSave(questionTypeCategories1);
+        QuestionTypeCategories questionTypeCategories2 = new QuestionTypeCategories(COMMON_SENSE);
+        questionService.questionTypeSave(questionTypeCategories2);
+        QuestionTypeCategories questionTypeCategories3 = new QuestionTypeCategories(ACCOUNT);
+        questionService.questionTypeSave(questionTypeCategories3);
+        QuestionTypeCategories questionTypeCategories4 = new QuestionTypeCategories(PROGRAM);
+        questionService.questionTypeSave(questionTypeCategories4);
         for(int i = 1; i <= 12; i++) {
             Question question;
             if(i <= 3) {
-                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
+                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 6) {
-                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(SUGGESTION);
+                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             else if(i <= 9) {
-                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PROGRAM);
+                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(COMMON_SENSE);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else {
-                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ETC);
+                QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PROGRAM);
                 question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
             }
             questionService.save(question);
@@ -64,7 +64,7 @@ class QuestionServiceTest {
 
     @Test
     public void findById() {
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
         Question question = new Question("abc", "abc", questionTypeCategories, null);
         questionService.save(question);
         Question findQuestion = questionService.findById(question.getId());
@@ -78,17 +78,17 @@ class QuestionServiceTest {
 
     @Test
     public void updateQuestion() {
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
         Question question = new Question("abc", "abc", questionTypeCategories, null);
         questionService.save(question);
-        QuestionTypeCategories updateQUestionTypeCategories = questionService.findByQuestionType(PROGRAM);
+        QuestionTypeCategories updateQUestionTypeCategories = questionService.findByQuestionType(COMMON_SENSE);
         questionService.updateQuestion(question, "updateTitle", "updateContent", updateQUestionTypeCategories);
         assertThat(question.getTitle()).isEqualTo("updateTitle");
     }
 
     @Test
     public void deleteQuestion() {
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
+        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
         Question question = new Question("abc", "abc", questionTypeCategories, null);
         questionService.save(question);
         questionService.deleteQuestion(question);
