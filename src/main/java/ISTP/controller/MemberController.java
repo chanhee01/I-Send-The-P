@@ -27,6 +27,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 public class MemberController {
 
     private final MemberService memberService;
