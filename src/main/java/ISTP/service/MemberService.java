@@ -97,7 +97,7 @@ public class MemberService {
         if(findMember != null) {
             throw new IllegalArgumentException("이미 존재하는 휴대폰 번호입니다");
         }
-        log.info("{}는 사용 가능한 휴대번호입니다.");
+        log.info("{}는 사용 가능한 휴대번호입니다.", phoneNumber);
         return true;
     }
     //비밀번호 재입력 확인 기능

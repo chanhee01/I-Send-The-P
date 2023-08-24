@@ -78,6 +78,18 @@ public class MemberController {
         }
     }
 
+    //회원가입 시 닉네임 중복 확인 로직
+    @PostMapping("/save/check_duplicate/phoneNumber")
+    @ResponseBody
+    public String checkDuplicatePhoneNumber(@RequestParam String phoneNumber) {
+        if(memberService.duplicatedPhoneNumber(phoneNumber)) {
+            return "ok";
+        }
+        else {
+            return "no";
+        }
+    }
+
     //마이페이지에 뿌려줄 DTO
     @ResponseBody
     @GetMapping("/myPages/{memberId}")
