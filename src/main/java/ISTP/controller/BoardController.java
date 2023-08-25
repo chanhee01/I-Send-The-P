@@ -65,8 +65,9 @@ public class BoardController {
     @ResponseBody
     @GetMapping("{boardId}")
     public BoardDto board(@PathVariable Long boardId) {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         Board board = boardService.findById(boardId);
-        BoardDto boardDto = new BoardDto(board);
+        BoardDto boardDto = new BoardDto(board, member);
         return boardDto;
     }
 

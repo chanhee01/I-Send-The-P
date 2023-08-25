@@ -30,7 +30,7 @@ public class Member extends BaseEntity { // 사용자
     private String password;
     private String name;
     private String nickname;
-    private int age; //생년월일이어야할듯
+    private Integer age; //생년월일이어야할듯
     private boolean gender; // true 면 남자, false 면 여자
     private String phoneNumber;
     @Column(name = "my_blood_type_id")
@@ -66,7 +66,7 @@ public class Member extends BaseEntity { // 사용자
         this.password = password;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, String phoneNumber) {
+    public Member(String loginId, String password, String name, String nickname, Integer age, String phoneNumber) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
@@ -94,7 +94,7 @@ public class Member extends BaseEntity { // 사용자
         this.alarmStatus = true;
     }
 
-    public Member(String loginId, String password, String name, String nickname, int age, boolean gender, String phoneNumber, Long myBloodType, String email, String address, boolean alarmStatus) {
+    public Member(String loginId, String password, String name, String nickname, Integer age, boolean gender, String phoneNumber, Long myBloodType, String email, String address, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;

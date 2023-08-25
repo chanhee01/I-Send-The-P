@@ -23,6 +23,7 @@ public class RequestDto {
     private Long bloodDonationTypeId;
     private LocalDateTime createdTime;
     private String phone_number;
+    private Long memberId;
 
     public RequestDto(Request request, Member member) {
         this.requestStatusId = request.getRequestStatusId();
@@ -39,5 +40,6 @@ public class RequestDto {
         this.bloodDonationTypeId = request.getBloodDonationTypeId();
         this.createdTime = request.getCreateDate();
         this.phone_number = member.getPhoneNumber();
+        this.memberId = member.getId();
     }
 }

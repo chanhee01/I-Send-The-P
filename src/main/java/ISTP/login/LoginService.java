@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final MemberRepository memberRepository;
+    private final LoginMemberRepository memberRepository;
 
     @Transactional
     public Member login(String loginId, String password) {
-        return memberRepository.findOptionalByLoginId(loginId)
+        return memberRepository.findByLoginId(loginId)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
+
+
 }

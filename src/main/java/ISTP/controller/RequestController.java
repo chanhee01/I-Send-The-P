@@ -7,8 +7,10 @@ import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.request.*;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import ISTP.login.SessionConst;
 import ISTP.message.MessageService;
 import ISTP.service.*;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -35,6 +37,7 @@ public class RequestController {
     private final MessageService messageService;
     private final AcceptService acceptService;
     private final BloodCenterService bloodCenterService;
+    private final HttpSession session;
 
     @GetMapping("") // 게시글 리스트
     public Page<RequestListDto> requestList(@PageableDefault(size = 10) Pageable pageable) {
@@ -56,7 +59,7 @@ public class RequestController {
 
     @PostMapping// 게시글 올리기
     public Long bloodRequest(@RequestBody RequestRe request) throws Exception {
-        Member member = memberService.findById(1L);
+        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         Request savedRequest = new Request(request.getTitle(), request.getRegisterNumber(), request.getHospitalName(),
                 request.getHospitalNumber(), request.getMyBloodTypeId(), request.getBloodProduct(), request.getDeadline(),
@@ -108,7 +111,7 @@ public class RequestController {
     @PostMapping("/{requestId}/accept") // 글에서 수락버튼 누르는 것
     public Long accept(@PathVariable Long requestId) {
         Request request = requestService.findById(requestId);
-        Member member = memberService.findById(1L);
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         AcceptStatusCategories byAcceptStatus = acceptService.findByAcceptStatus(AcceptStatusName.ACCEPT);
         Accept accept = new Accept(member, request, byAcceptStatus.getId());
         Long savedId = acceptService.save(accept);
@@ -135,7 +138,7 @@ public class RequestController {
 
     @GetMapping("{requestId}/hospitals")
     public List<HospitalDto> hospital() throws Exception {
-        Member member = memberService.findById(1L);
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         String hospital = member.getAddress();
         List<BloodCenterDTO> api = bloodCenterService.API(hospital);
         List<HospitalDto> hospitalDtos = new ArrayList<>();
@@ -151,9 +154,9 @@ public class RequestController {
 
     //내가 등록한 긴급헌혈 요청서 목록
     @ResponseBody
-    @GetMapping("/{memberId}/my_list")
-    public List<MyRequestDto> myRequestList(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
+    @GetMapping("/my_list")
+    public List<MyRequestDto> myRequestList() {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         List<Request> allByMemberNickname = requestService.findAllByMemberNickname(member.getNickname());
         List<MyRequestDto> requestDtos = new ArrayList<>();
         for (Request request : allByMemberNickname) {

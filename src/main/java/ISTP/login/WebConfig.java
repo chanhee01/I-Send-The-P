@@ -12,7 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginMemberArgumentResolver());
-    }
+    }/*
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns("/css/**", "/*.ico", "/error");
 
-        /*registry.addInterceptor(new LoginCheckInterceptor())
+        registry.addInterceptor(new LoginCheckInterceptor())
                 .order(3)
                 .addPathPatterns("/**")
                 .excludePathPatterns ("/", "/api/members", "/api/members/duplicate/loginId", "/api/members/duplicate/nickname",
@@ -30,7 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/api/acceptStatusCategories", "/api/bloodDonationCategories", "/api/bloodTypeCategories",
                         "/api/questionTypeCategories", "/api/requestStatusCategories",
                         "/css/**", "/*.ico", "/error", "/session-info");
-                        */
-        
-    }
+
+
+    }*/
 }

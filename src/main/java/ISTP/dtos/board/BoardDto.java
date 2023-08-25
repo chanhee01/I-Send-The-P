@@ -2,6 +2,7 @@ package ISTP.dtos.board;
 
 
 import ISTP.domain.board.Board;
+import ISTP.domain.member.Member;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,12 +17,14 @@ public class BoardDto {
     private boolean isNotice;
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
+    private Long memberId;
 
-    public BoardDto(Board board) {
+    public BoardDto(Board board, Member member) {
         title = board.getTitle();
         content = board.getContent();
         isNotice = board.isNotice();
         createDate = board.getCreateDate();
         lastModifiedDate = board.getLastModifiedDate();
+        memberId = member.getId();
     }
 }

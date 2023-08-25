@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BloodCenterService {
     public List<BloodCenterDTO> API(String region1) throws Exception {
         String apiKey = "iLym7e7dn3giI%2BmdG330sFyy4RnUHHqDIFfthi7pYXmL9y1sP1DBmODFnyAMr5NxVTsltnvwVXPU7n9irOrADA%3D%3D";

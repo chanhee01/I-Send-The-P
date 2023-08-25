@@ -4,6 +4,7 @@ import ISTP.domain.BaseEntity;
 import ISTP.domain.MemberAlarm;
 import ISTP.domain.board.Board;
 import ISTP.domain.member.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Alarm extends BaseEntity {
     @Column(name = "alarm_Id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "request_member_id")
     private Member requestMember;

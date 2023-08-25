@@ -33,6 +33,7 @@ public class Request extends BaseEntity { // 헌혈 요청
     private Long bloodDonationTypeId; // 어떤 헌혈인지;
     @Column(name = "request_status_id")
     private Long requestStatusId; //요청글 처리 상태 요청신청, 요청진행, 요청완료
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

@@ -27,4 +27,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m where m.myBloodTypeId = :bloodTypeId and m.alarmStatus = true")
     List<Member> findAllByBloodTypeIdAndAlarmStatus(@Param(value = "bloodTypeId") Long bloodTypeId);
+
+    Member findOneByLoginId(String loginId);
 }

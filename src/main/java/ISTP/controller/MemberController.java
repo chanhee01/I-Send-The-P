@@ -1,16 +1,10 @@
 package ISTP.controller;
 
-import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.dtos.login.LoginDtoRequest;
 import ISTP.dtos.member.MemberChangeDto;
-import ISTP.dtos.member.MemberEditMyPageDto;
 import ISTP.dtos.member.MemberSaveForm;
-import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.dtos.member.MemberMyPageDto;
-import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
-import ISTP.dtos.request.MyAcceptDto;
-import ISTP.dtos.request.MyRequestDto;
 import ISTP.login.LoginService;
 import ISTP.login.SessionConst;
 import ISTP.service.AcceptService;
@@ -25,9 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -103,19 +94,22 @@ public class MemberController {
 
     //마이페이지에 뿌려줄 DTO
     @ResponseBody
-    @GetMapping("/{memberId}")
-    public MemberMyPageDto myPage(@PathVariable Long memberId) {
-        Member member = memberService.findById(memberId);
+    @GetMapping("")
+    public MemberMyPageDto myPage() {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         MemberMyPageDto myPageDto = new MemberMyPageDto(member);
         return myPageDto;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login (@Validated @RequestBody LoginDtoRequest request, BindingResult bindingResult,
-                                    HttpServletRequest httpServletRequest) {
+    public Long login (@RequestBody LoginDtoRequest request, BindingResult bindingResult,
+                       HttpServletRequest httpServletRequest) {
+        Member byLoginId = memberService.findByLoginId(request.getLoginId());
+        Long id = byLoginId.getId();
         if(bindingResult.hasErrors()) {
             log.info("로그인 오류");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return null;
+            //return new ResponseEntity(HttpStatus.BAD_REQUEST);
             // 로그인 페이지로 리다이렉트
         }
 
@@ -123,7 +117,8 @@ public class MemberController {
 
         if(loginMember == null) {
             bindingResult.reject("loginFail");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST); // 여기도 로그인 실패로 리다이렉트
+            return null;
+            //return new ResponseEntity(HttpStatus.BAD_REQUEST); // 여기도 로그인 실패로 리다이렉트
         }
 
         HttpSession session = httpServletRequest.getSession();
@@ -131,7 +126,7 @@ public class MemberController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
         // 세션에 로그인 회원 정보를 보관
 
-        return new ResponseEntity(HttpStatus.OK);
+        return id;
     }
 
     @PostMapping("/logout")
@@ -143,18 +138,10 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.OK); // 홈 페이지로 리다이렉트
     }
 
-    @GetMapping("/myPages/{memberId}/edit")
-    public MemberEditMyPageDto myEditPage(@PathVariable Long memberId)  {
-        Member member = memberService.findById(memberId);
-        MemberEditMyPageDto memberEditMyPageDto = new MemberEditMyPageDto(member);
-        return memberEditMyPageDto;
-    }
-    //as
 
-
-    @PutMapping("/{memberId}")
-    public ResponseEntity<?> change(@PathVariable Long memberId, @RequestBody MemberChangeDto memberChangeDto) {
-        Member member = memberService.findById(memberId);
+    @PutMapping("")
+    public ResponseEntity<?> change(@RequestBody MemberChangeDto memberChangeDto) {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         ResponseEntity<?> responseEntity = memberService.changeMember(member, memberChangeDto.getPhoneNumber(), memberChangeDto.getUserNickname(),
                 memberChangeDto.getAddress());
         return responseEntity;

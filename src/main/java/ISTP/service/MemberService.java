@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -126,11 +127,6 @@ public class MemberService {
      * 로그인 처리 기능
      * null이면 로그인 실패
      */
-    public Member login(String loginId, String password) {
-        return memberRepository.findLoginByLoginId(loginId)
-                .filter(m -> m.getPassword().equals(password))
-                .orElse(null);
-    }
 
 
     //회원 탈퇴 기능
@@ -226,4 +222,9 @@ public class MemberService {
     public List<Member> findAllByBloodTypeIdAndAlarmStatus(Long bloodTypeId) {
         return memberRepository.findAllByBloodTypeIdAndAlarmStatus(bloodTypeId);
     }
+
+    public Member findByLoginId(String loginId) {
+        return memberRepository.findOneByLoginId(loginId);
+    }
+
 }

@@ -17,6 +17,7 @@ public class MemberAlarm extends BaseEntity{
     @Column(name = "member_alarm_id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accept_member_id")
     private Member acceptMember;
