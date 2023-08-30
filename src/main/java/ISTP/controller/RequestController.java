@@ -16,12 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 @RestController
 @Slf4j
@@ -67,8 +65,6 @@ public class RequestController {
                 request.getBloodDonationTypeId(), member);
 
         Long savedId = requestService.save(savedRequest);
-
-        // 혈액형 고정, 기간 몰라서 3일로 고정함
 
         List<Member> allByMemberBloodType = memberService.findAllByBloodTypeIdAndAlarmStatus(request.getBloodDonationTypeId());
         for (Member m : allByMemberBloodType) {

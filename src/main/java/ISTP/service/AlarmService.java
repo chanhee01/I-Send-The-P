@@ -52,7 +52,7 @@ public class AlarmService {
     public Long createAlarmForMember(Member requestMember, Request request) {
         Alarm alarm = new Alarm(requestMember, request.getTitle(), request.getId());
         List<Member> acceptAlarmMember = memberRepository.
-                findAllByMyBloodTypeIdAndAlarmStatusAndAddress(request.getBloodTypeId(), true, "인천시");
+                findAllByMyBloodTypeIdAndAlarmStatusAndAddress(request.getBloodTypeId(), true, "인천");
         /**
          * 병원 명이 아니라 주소 받아야하는데 그게 지금 구현이 안되어있음 회의해야함
          */

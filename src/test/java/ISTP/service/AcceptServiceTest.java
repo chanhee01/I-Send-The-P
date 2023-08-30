@@ -133,9 +133,9 @@ public class AcceptServiceTest {
         AcceptStatusCategories byAcceptStatus = acceptService.findByAcceptStatus(AcceptStatusName.COMPLETED);
 
 
-        Accept accept1 = new Accept(member4, request1, byAcceptStatus);
-        Accept accept2 = new Accept(member4, request2, byAcceptStatus);
-        Accept accept3 = new Accept(member4, request3, byAcceptStatus);
+        Accept accept1 = new Accept(member4, request1, 3L);
+        Accept accept2 = new Accept(member4, request2, 3L);
+        Accept accept3 = new Accept(member4, request3, 3L);
 
 
         Long count = acceptService.count(member1);

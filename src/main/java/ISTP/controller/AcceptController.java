@@ -3,10 +3,12 @@ package ISTP.controller;
 import ISTP.domain.bloodDonation.accept.Accept;
 import ISTP.domain.bloodDonation.request.Request;
 import ISTP.domain.member.Member;
+import ISTP.dtos.bloodCenter.BloodCenterDTO;
 import ISTP.dtos.member.MemberChangeDto;
 import ISTP.dtos.request.MyAcceptDto;
 import ISTP.login.SessionConst;
 import ISTP.service.AcceptService;
+import ISTP.service.BloodCenterService;
 import ISTP.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ public class AcceptController {
     private final MemberService memberService;
     private final AcceptService acceptService;
     private final HttpSession session;
+    private final BloodCenterService bloodCenterService;
 
     @GetMapping("/count")
     public Long count() {
@@ -49,5 +52,15 @@ public class AcceptController {
             acceptDtos.add(acceptDto);
         }
         return acceptDtos;
+    }
+
+    @GetMapping("/hospital")
+    public List<BloodCenterDTO> hospital() throws Exception {
+        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        List<BloodCenterDTO> hospital = bloodCenterService.API(member.getAddress());
+        System.out.println(member.getAddress());
+
+        return hospital;
     }
 }

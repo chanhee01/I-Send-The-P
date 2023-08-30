@@ -102,9 +102,9 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public Long login (@RequestBody LoginDtoRequest request, BindingResult bindingResult,
-                       HttpServletRequest httpServletRequest) {
-        Member byLoginId = memberService.findByLoginId(request.getLoginId());
+    public ResponseEntity login (@Validated @RequestBody LoginDtoRequest request, BindingResult bindingResult,
+                                 HttpServletRequest httpServletRequest) {
+        /*Member byLoginId = memberService.findByLoginId(request.getLoginId());
         Long id = byLoginId.getId();
         if(bindingResult.hasErrors()) {
             log.info("로그인 오류");
@@ -126,7 +126,27 @@ public class MemberController {
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
         // 세션에 로그인 회원 정보를 보관
 
-        return id;
+        return id;*/
+
+        if(bindingResult.hasErrors()) {
+            log.info("로그인 오류");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            // 로그인 페이지로 리다이렉트
+        }
+
+        Member loginMember = loginService.login(request.getLoginId(), request.getPassword());
+
+        if(loginMember == null) {
+            bindingResult.reject("loginFail");
+            return new ResponseEntity(HttpStatus.BAD_REQUEST); // 여기도 로그인 실패로 리다이렉트
+        }
+
+        HttpSession session = httpServletRequest.getSession();
+        // request.getSession() -> 세션이 있으면 세션 반환, 없으면 신규 세션을 생성
+        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
+        // 세션에 로그인 회원 정보를 보관
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/logout")
