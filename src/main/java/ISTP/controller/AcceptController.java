@@ -59,7 +59,6 @@ public class AcceptController {
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
         List<BloodCenterDTO> hospital = bloodCenterService.API(member.getAddress());
-        System.out.println(member.getAddress());
 
         return hospital;
     }

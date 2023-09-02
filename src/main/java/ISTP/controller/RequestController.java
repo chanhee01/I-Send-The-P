@@ -115,7 +115,7 @@ public class RequestController {
         return savedId;
     }
 
-    @PutMapping("/{requestId}/complete") // 헌혈 후 완료버튼 누르기
+    @PutMapping("/{requestId}/complete/{acceptId}") // 헌혈 후 완료버튼 누르기
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
         acceptService.update_finish(accept);
@@ -124,7 +124,7 @@ public class RequestController {
         memberService.countPlus(accept.getMember());
     }
 
-    @PutMapping("/{requestId}/cancle") // 수락했는데 취소하는것
+    @PutMapping("/{requestId}/cancle/{acceptId} ") // 수락했는데 취소하는것
     public void cancel(@PathVariable Long requestId, @PathVariable Long acceptId) {
         Accept accept = acceptService.findById(acceptId);
         acceptService.update_cancel(accept);

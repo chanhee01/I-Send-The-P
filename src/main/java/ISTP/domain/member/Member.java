@@ -66,7 +66,7 @@ public class Member extends BaseEntity { // 사용자
         this.password = password;
     }
 
-    public Member(String loginId, String password, String name, String nickname, Integer age, String phoneNumber) {
+    public Member(String loginId, String password, String name, String nickname, Integer age, String phoneNumber, boolean alarmStatus) {
         this.loginId = loginId;
         this.password = password;
         this.name = name;
@@ -74,7 +74,7 @@ public class Member extends BaseEntity { // 사용자
         this.age = age;
         this.phoneNumber = phoneNumber;
         this.alarmStatus = true;
-        this.alarmStatus = true;
+        this.alarmStatus = alarmStatus;
     }
 
     public Member(String loginId, String password, String nickname) {

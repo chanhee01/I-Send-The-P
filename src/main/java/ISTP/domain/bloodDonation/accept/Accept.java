@@ -31,7 +31,7 @@ public class Accept extends BaseEntity { // 헌혈 해주는 사람
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-    private boolean isOngoing = true; // 헌혈완료 후 아직 헌혈기간 On되지 않은 상태
+    private boolean isOngoing = true; // 헌혈완료 후 아직 헌혈기간 On되지 않은 상태\
 
     public Accept() {
     }

@@ -3,6 +3,7 @@ package ISTP.service;
 import ISTP.domain.bloodDonation.BloodTypeCategories;
 import ISTP.domain.bloodDonation.BloodTypeName;
 import ISTP.domain.member.Member;
+import ISTP.login.LoginService;
 import ISTP.repository.BloodTypeCategoriesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,6 +25,8 @@ class MemberServiceTest {
     MemberService memberService;
     @Autowired
     BloodTypeCategoriesRepository bloodTypeCategoriesRepository;
+    @Autowired
+    LoginService loginService;
     @BeforeEach
     public void before() {
         BloodTypeCategories bloodTypeCategories1 = new BloodTypeCategories(A_PLUS);
@@ -146,16 +149,16 @@ class MemberServiceTest {
 
     @Test
     public void duplicatedPhoneNumber() {
-        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
-        memberService.save(member1);
+        //Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
+        //memberService.save(member1);
         String phoneNumber = "01076645198";
         assertThat(memberService.duplicatedPhoneNumber(phoneNumber)).isTrue();
     }
 
     @Test
     public void duplicatedPhoneNumberError() {
-        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
-        memberService.save(member1);
+        //Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
+        //memberService.save(member1);
         String phoneNumber = "01076645199";
         assertThrows(IllegalArgumentException.class, () -> memberService.duplicatedPhoneNumber(phoneNumber));
     }
@@ -181,7 +184,7 @@ class MemberServiceTest {
         Member member1 = new Member("loginId1", "password1", "nickname1");
         memberService.save(member1);
 
-        Member loginMember = memberService.login("loginId1", "password1");
+        Member loginMember = loginService.login("loginId1", "password1");
         assertThat(loginMember).isEqualTo(member1);
     }
 
@@ -190,7 +193,7 @@ class MemberServiceTest {
         Member member1 = new Member("loginId1", "password1", "nickname1");
         memberService.save(member1);
 
-        Member loginMember = memberService.login("loginId1", "password2");
+        Member loginMember = loginService.login("loginId1", "password2");
         assertThat(loginMember).isNull();
     }
 

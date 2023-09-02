@@ -32,8 +32,8 @@ class AnswerServiceTest {
     public void before() {
         BloodTypeCategories bloodTypeCategoriesA = new BloodTypeCategories(BloodTypeName.A_PLUS);
         BloodTypeCategories bloodTypeCategoriesB = new BloodTypeCategories(BloodTypeName.A_PLUS);
-        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategoriesA, "aaa@naver.com", "인천시", true);
-        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategoriesB, "bbb@naver.com", "서울시", true);
+        Member member1 = new Member("loginId1", "password1", "test1", "별명1", 10, true, "010-1111-2222", bloodTypeCategoriesA.getId(), "aaa@naver.com", "인천시", true);
+        Member member2 = new Member("loginId2", "password2", "test2", "별명2", 20, false, "010-3333-4444", bloodTypeCategoriesB.getId(), "bbb@naver.com", "서울시", true);
         memberService.save(member1);
         memberService.save(member2);
         for(int i = 1; i <= 12; i++) {
