@@ -18,6 +18,7 @@ public class BoardDto {
     private LocalDateTime createDate;
     private LocalDateTime lastModifiedDate;
     private Long memberId;
+    private String memberNickname;
 
     public BoardDto(Board board, Member member) {
         title = board.getTitle();
@@ -26,5 +27,6 @@ public class BoardDto {
         createDate = board.getCreateDate();
         lastModifiedDate = board.getLastModifiedDate();
         memberId = member.getId();
+        memberNickname = member.getNickname();
     }
 }

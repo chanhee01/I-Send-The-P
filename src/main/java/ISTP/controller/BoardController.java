@@ -65,8 +65,8 @@ public class BoardController {
     @ResponseBody
     @GetMapping("{boardId}")
     public BoardDto board(@PathVariable Long boardId) {
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        Board board = boardService.findById(boardId);
+        Board board = boardService.findByIdWithMember(boardId);
+        Member member = board.getMember();
         BoardDto boardDto = new BoardDto(board, member);
         return boardDto;
     }
@@ -91,6 +91,4 @@ public class BoardController {
         Board board = boardService.findById(boardId);
         boardService.deleteBoard(board);
     }
-
-
 }
