@@ -159,8 +159,6 @@ public class MemberService {
         }
     }
 
-
-
     //주소 변경하는 기능
     @Transactional
     public void changeAddress(Member member, String changeAddress) {
