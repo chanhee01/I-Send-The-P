@@ -7,9 +7,7 @@ import ISTP.dtos.member.MemberMyPageDto;
 import ISTP.domain.member.Member;
 import ISTP.login.LoginService;
 import ISTP.login.SessionConst;
-import ISTP.service.AcceptService;
 import ISTP.service.MemberService;
-import ISTP.service.RequestService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +26,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-    private final RequestService requestService;
-    private final AcceptService acceptService;
     private final LoginService loginService;
     private final HttpSession session;
 
@@ -94,7 +90,7 @@ public class MemberController {
 
     //마이페이지에 뿌려줄 DTO
     @ResponseBody
-    @GetMapping("")
+    @GetMapping
     public MemberMyPageDto myPage() {
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         MemberMyPageDto myPageDto = new MemberMyPageDto(member);
@@ -159,7 +155,7 @@ public class MemberController {
     }
 
 
-    @PutMapping("")
+    @PutMapping
     public ResponseEntity<?> change(@RequestBody MemberChangeDto memberChangeDto) {
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         ResponseEntity<?> responseEntity = memberService.changeMember(member, memberChangeDto.getPhoneNumber(), memberChangeDto.getUserNickname(),
@@ -167,11 +163,8 @@ public class MemberController {
         return responseEntity;
     }
 
-    //닉네임 수정
-    /**
-     * 수정시 닉네임과 관련된 모든 부분 고쳐야하는데 아직 안했음!! 
-     */
-    /*@PutMapping("/myPages/{memberId}/edit/nickname")
+    /*//닉네임 수정
+    @PutMapping("/myPages/{memberId}/edit/nickname")
     public void editNickName(@PathVariable Long memberId, @RequestParam String nickname) {
         Member member = memberService.findById(memberId);
         memberService.changeNickname(member, nickname);
@@ -182,8 +175,8 @@ public class MemberController {
     public void editAddress(@PathVariable Long memberId, @RequestParam String address) {
         Member member = memberService.findById(memberId);
         memberService.changeAddress(member, address);
-    }*/
-
+    }
+*/
 
 
 
