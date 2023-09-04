@@ -9,11 +9,11 @@ import ISTP.dtos.faq.FaqDto;
 import ISTP.dtos.help.*;
 import ISTP.login.SessionConst;
 import ISTP.service.AnswerService;
-import ISTP.service.MemberService;
 import ISTP.service.QuestionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,36 +28,33 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class HelpController {
 
-    private final MemberService memberService;
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final HttpSession session;
 
     //1:1 문의 글 작성
-    /**
-     * 로그인 세션에서 회원 정보 가져오는 기능 추가 구현해야할듯
-     */
-    @PostMapping("")
+    @PostMapping
+    @Transactional
     public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        System.out.println("member = " + member.getNickname());
         Long questionTypeId = form.getQuestionType();
         QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
         QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
-        Question question = new Question(form.getTitle(), form.getContent(), questionTypeCategories, member);
-        questionService.save(question);
-        return question.getId();
+        System.out.println("questionTypeCategories = " + questionTypeCategories.getQuestionType());
+        Long saveQuestionId = questionService.save(form.getTitle(), form.getContent(), questionTypeCategories, member);
+        return saveQuestionId;
     }
 
     //1:1 문의내역 리스트
     @ResponseBody
-    @GetMapping("")
+    @GetMapping
     public List<QuestionSummaryDto> questionList(@RequestParam Long typeId) {
-        Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        Member member = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
         List<Question> questions = questionService.findAllByQuestionTypeId(member.getId(), typeId);
         List<QuestionSummaryDto> questionSummaryDtos = new ArrayList<>();
         for(Question question : questions) {

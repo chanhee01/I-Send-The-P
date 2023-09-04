@@ -27,8 +27,7 @@ public class Question extends BaseEntity { // 문의사항
     @Column(name = "question_type_id")
     private Long questionTypeId;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
     private Member member;
 

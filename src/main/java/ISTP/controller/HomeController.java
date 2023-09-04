@@ -1,12 +1,12 @@
 package ISTP.controller;
 
-import ISTP.domain.banner.Banner;
 import ISTP.domain.member.Member;
 import ISTP.dtos.banner.BanDto;
 import ISTP.dtos.banner.BannerDto;
 import ISTP.dtos.member.MemberRankingDto;
 import ISTP.service.BannerService;
 import ISTP.service.MemberService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

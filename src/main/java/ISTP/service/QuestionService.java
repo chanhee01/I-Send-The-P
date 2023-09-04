@@ -4,6 +4,7 @@ import ISTP.domain.help.Answer;
 import ISTP.domain.help.faq.Faq;
 import ISTP.domain.help.question.Question;
 import ISTP.domain.help.question.QuestionTypeCategories;
+import ISTP.domain.member.Member;
 import ISTP.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,8 @@ public class QuestionService {
 
 
     @Transactional
-    public Long save(Question question) {
+    public Long save(String title, String content, QuestionTypeCategories questionTypeCategories, Member member) {
+        Question question = new Question(title, content, questionTypeCategories, member);
         Question saveQuestion = questionRepository.save(question);
         log.info("{} 1:1 문의글 생성", saveQuestion.getTitle());
         return saveQuestion.getId();
