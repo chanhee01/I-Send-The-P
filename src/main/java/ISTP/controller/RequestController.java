@@ -118,7 +118,7 @@ public class RequestController {
 
     @PutMapping("/{requestId}/complete/{acceptId}") // 헌혈 후 완료버튼 누르기
     public void finish(@PathVariable Long requestId, @PathVariable Long acceptId) {
-        Accept accept = acceptService.findById(acceptId);
+        Accept accept = acceptService.findByIdWithMember(acceptId);
         acceptService.update_finish(accept);
         Request request = requestService.findById(requestId);
         requestService.changeStatus2(request);

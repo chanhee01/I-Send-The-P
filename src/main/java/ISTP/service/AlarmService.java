@@ -32,15 +32,7 @@ public class AlarmService {
     private final MemberRepository memberRepository;
     private final MemberAlarmRepository memberAlarmRepository;
     private final RequestRepository requestRepository;
-    private final MessageService messageService;
 
-
-    public Alarm findAlarmById(Long alarmId) {
-        Alarm findAlarm = alarmRepository.findById(alarmId)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 알람입니다"));
-        log.info("아이디로 알람 찾기 {}", findAlarm);
-        return findAlarm;
-    }
     public MemberAlarm findMemberAlarmById(Long memberAlarmId) {
         MemberAlarm findMemberAlarm = memberAlarmRepository.findById(memberAlarmId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버알람입니다"));

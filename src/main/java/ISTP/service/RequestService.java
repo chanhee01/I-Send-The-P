@@ -44,6 +44,7 @@ public class RequestService {
         return requestRepository.findById(requestId).
                 orElseThrow(() -> new IllegalArgumentException());
     }
+
     public RequestStatusCategories findByRequestStatus(String requestStatus) {
         RequestStatusCategories byRequestStatus = requestStatusCategoriesRepository.findByRequestStatus(requestStatus);
         return byRequestStatus;

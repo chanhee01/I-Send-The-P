@@ -33,6 +33,11 @@ public class AcceptService {
                 orElseThrow(() -> new IllegalArgumentException());
     }
 
+    public Accept findByIdWithMember(Long id) {
+        return acceptRepository.findByIdWithMember(id).
+                orElseThrow(() -> new IllegalArgumentException());
+    }
+
     public AcceptStatusCategories findByAcceptStatus(String acceptStatus) {
         AcceptStatusCategories byAcceptStatus = acceptStatusCategoriesRepository.findByAcceptStatus(acceptStatus);
         return byAcceptStatus;

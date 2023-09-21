@@ -31,10 +31,18 @@ public class BoardService {
         return findBoard;
     }
 
+    public Board findByIdWithMember(Long boardId) {
+        Board findBoard = boardRepository.findByIdWithMember(boardId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다"));
+        log.info("아이디로 게시글 찾기 {}", findBoard);
+        return findBoard;
+    }
+
     public List<Board> findAll() {
         log.info("모든 게시글 조회");
         return boardRepository.findAll();
     }
+
     public List<Board> findByBoardType() {
         log.info("공지사항이 맨 위에 나오도록 모든 게시글 조회");
         List<Board> noticeBoards = boardRepository.findAllByBoardType(true);
