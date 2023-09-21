@@ -44,33 +44,23 @@ class QuestionServiceTest {
             Question question;
             if(i <= 3) {
                 QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
-                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
+                questionService.save("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 6) {
                 QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(ACCOUNT);
-                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
+                questionService.save("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else if(i <= 9) {
                 QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(COMMON_SENSE);
-                question = new Question("title" + i, "content" + i, questionTypeCategories, member1);
+                questionService.save("title" + i, "content" + i, questionTypeCategories, member1);
             }
             else {
                 QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PROGRAM);
-                question = new Question("title" + i, "content" + i, questionTypeCategories, member2);
+                questionService.save("title" + i, "content" + i, questionTypeCategories, member1);
             }
-            questionService.save(question);
+
         }
     }
-
-    @Test
-    public void findById() {
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
-        Question question = new Question("abc", "abc", questionTypeCategories, null);
-        questionService.save(question);
-        Question findQuestion = questionService.findById(question.getId());
-        assertThat(findQuestion).isEqualTo(question);
-    }
-
     @Test
     public void findByIdError() {
         assertThrows(IllegalArgumentException.class, () -> questionService.findById(14L));
@@ -79,8 +69,8 @@ class QuestionServiceTest {
     @Test
     public void updateQuestion() {
         QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
-        Question question = new Question("abc", "abc", questionTypeCategories, null);
-        questionService.save(question);
+        Long saveQuestionId = questionService.save("abc", "abc", questionTypeCategories, null);
+        Question question = questionService.findById(saveQuestionId);
         QuestionTypeCategories updateQUestionTypeCategories = questionService.findByQuestionType(COMMON_SENSE);
         questionService.updateQuestion(question, "updateTitle", "updateContent", updateQUestionTypeCategories);
         assertThat(question.getTitle()).isEqualTo("updateTitle");
@@ -89,11 +79,11 @@ class QuestionServiceTest {
     @Test
     public void deleteQuestion() {
         QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(PARTICIPATION);
-        Question question = new Question("abc", "abc", questionTypeCategories, null);
-        questionService.save(question);
+        Long saveQuestionId = questionService.save("abc", "abc", questionTypeCategories, null);
+        Question question = questionService.findById(saveQuestionId);
         questionService.deleteQuestion(question);
-
         assertThrows(IllegalArgumentException.class, () -> questionService.findById(question.getId()));
     }
+
 
 }

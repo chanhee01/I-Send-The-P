@@ -34,18 +34,14 @@ public class HelpController {
 
     //1:1 문의 글 작성
     @PostMapping
-    @Transactional
     public Long save(@Validated @RequestBody QuestionSaveForm form, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
             throw new IllegalArgumentException("문의글 작성 시 오류 발생");
         }
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        System.out.println("member = " + member.getNickname());
         Long questionTypeId = form.getQuestionType();
-        QuestionTypeCategories questionTypeCategories1 = questionService.find(questionTypeId);
-        QuestionTypeCategories questionTypeCategories = questionService.findByQuestionType(questionTypeCategories1.getQuestionType());
-        System.out.println("questionTypeCategories = " + questionTypeCategories.getQuestionType());
+        QuestionTypeCategories questionTypeCategories = questionService.find(questionTypeId);
         Long saveQuestionId = questionService.save(form.getTitle(), form.getContent(), questionTypeCategories, member);
         return saveQuestionId;
     }
@@ -69,7 +65,6 @@ public class HelpController {
     public Long editQuestion(@Validated @RequestBody QuestionEditForm form, BindingResult bindingResult, @PathVariable Long questionId) {
         if(bindingResult.hasErrors()) {
             log.info("errors = {}", bindingResult);
-            //에러처리 어케 할까여
             throw new IllegalArgumentException("문의글 수정 시 오류 발생");
         }
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);

@@ -149,16 +149,16 @@ class MemberServiceTest {
 
     @Test
     public void duplicatedPhoneNumber() {
-        //Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
-        //memberService.save(member1);
+        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199", false);
+        memberService.save(member1);
         String phoneNumber = "01076645198";
         assertThat(memberService.duplicatedPhoneNumber(phoneNumber)).isTrue();
     }
 
     @Test
     public void duplicatedPhoneNumberError() {
-        //Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199");
-        //memberService.save(member1);
+        Member member1 = new Member("loginId1", "password1", "name1", "nickname1", 991021, "01076645199", false);
+        memberService.save(member1);
         String phoneNumber = "01076645199";
         assertThrows(IllegalArgumentException.class, () -> memberService.duplicatedPhoneNumber(phoneNumber));
     }
