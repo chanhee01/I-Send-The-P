@@ -14,11 +14,12 @@
 
 
 
-#### **주요 적용 기술**
+#### **백엔드 주요 적용 기술**
 
-- 개발 언어 : HTML, CSS, JavaScript,  Java
-- 개발 도구 : Visual Studio Code, IntelliJ IDEA, Postman
-- 주요 기술 : React, Spring boot, Spring Data JPA
+- 개발 언어 : Java
+- 개발 도구 : IntelliJ IDEA, Postman
+- 주요 기술 : Spring boot, Spring Data JPA, h2 database, AWS EC2, S3, RDS
+- 협업 도구 : git, github, notion
 
 #### **서비스 플로우차트**
 <img width="1008" alt="플로우차트" src="https://github.com/I-Send-The-P/.github/assets/126947828/a45b98bd-8782-4afc-be43-17fd715df8a4">
