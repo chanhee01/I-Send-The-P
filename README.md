@@ -1,4 +1,4 @@
-# **2023 인하대학교 SOCIAL IMPACT 해커톤 우수상**
+# **2023 SOCIAL IMPACT 해커톤 우수상**
 
 
 
